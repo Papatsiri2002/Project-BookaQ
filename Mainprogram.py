@@ -5,6 +5,7 @@ import sqlite3
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
+
 # set up
 w,h = 1000,700
 # splash window
@@ -19,6 +20,7 @@ splash_win.overrideredirect(True)
 splash_win.configure(bg='#FFFFFF')
 image = Label(splash_win,image=startimage)
 image.place(x=-2,y=-2)
+
 # def start program
 def Startprogram():
     splash_win.destroy()
@@ -211,7 +213,7 @@ def Startprogram():
             hotel_search = PhotoImage(file="image/mainprogram/hotel_search.png")
             hotel_checkbook = PhotoImage(file="image/mainprogram/checkbooking.png")
             # boy girl
-            global boy_image,girl_image,button_manage,button_change,button_cf,button_topup,frame_point,frame_money,button_exc,button_money,pic_item_1,pic_item_2,pic_item_3
+            global boy_image,girl_image,button_manage,button_change,button_cf,button_topup,frame_point,frame_money,button_exc,button_money,pic_item_1,pic_item_2,pic_item_3,membership_but,membership_frame,membershiplevel_1,membershiplevel_2,membershiplevel_3
             #
             boy_image = PhotoImage(file="image/mainprogram/hahaboy.png").subsample(6,6)
             girl_image = PhotoImage(file="image/mainprogram/hahagirl.png").subsample(6,6)
@@ -226,6 +228,12 @@ def Startprogram():
             pic_item_1 = PhotoImage(file="image/mainprogram/item_1.png")
             pic_item_2 = PhotoImage(file="image/mainprogram/item_2.png")
             pic_item_3 = PhotoImage(file="image/mainprogram/item_3.png")
+            membership_but = PhotoImage(file="image/mainprogram/membership.png")
+            membership_frame = PhotoImage(file="image/mainprogram/membershipframe.png")
+            membershiplevel_1 = PhotoImage(file="image/mainprogram/but_member_1.png")
+            membershiplevel_2 = PhotoImage(file="image/mainprogram/but_member_2.png")
+            membershiplevel_3 = PhotoImage(file="image/mainprogram/but_member_3.png")
+
     # def 1 login customer/admin
     def allfunctionin_loginpage() : # all function about login
         global customerlogin , customerregister , adminlogin , entry_username_admin_spy , entry_password_admin_spy
@@ -246,6 +254,7 @@ def Startprogram():
         # admin
         entry_username_admin_spy = StringVar()
         entry_password_admin_spy = StringVar()
+
         # customer login page
         def customerlogin() : # login page for customer
             # function
@@ -295,6 +304,7 @@ def Startprogram():
                     if  entry_password_customerlogin_spy.get() == "" :
                         entry_password_customerlogin_spy.set("Password   ")
                         entry_password_customerlogin["fg"] = "#AAAAAA"
+
             # Spy set
             entry_username_customerlogin_spy.set("Username   ")
             entry_password_customerlogin_spy.set("Password   ")
@@ -328,6 +338,7 @@ def Startprogram():
             # button = sign up
             button_signup_customerlogin = Button(frame_customerlogin,text="Sign up",width=6,border=0,height=1,bg="#FFFFFF",fg="#7D92BE",font="Calibri 12 bold",command=customerregister,activebackground="white",activeforeground="purple")
             button_signup_customerlogin.place(x=822,y=477)
+
             # bind
             if entry_username_customerlogin_spy.get() == "Username   " :
                 entry_username_customerlogin.bind("<Button-1>",entry_username_customerlogin_click)
@@ -336,6 +347,7 @@ def Startprogram():
             button_signin_customerlogin.bind("<Button-1>",button_signin_customerlogin_click)
             button_adminlogin = Button(frame_customerlogin,text="For Admin",font="Calibri 12 underline",border=0,bg="white",activebackground="white",command=adminlogin)
             button_adminlogin.place(x=w-80,y=h-35)
+
         # customer register page
         def customerregister() : # register page for customer
             global frame_customerregister
@@ -349,7 +361,7 @@ def Startprogram():
                     entry_regusername_customerlogin_spy.set("Username   ")
                     entry_register_username["fg"] = "#AAAAAA"
                 if  entry_regfullname_customerlogin_spy.get() == "" :
-                    entry_regfullname_customerlogin_spy.set("Fullname   ") #
+                    entry_regfullname_customerlogin_spy.set("Full name   ") #
                     entry_register_fullname["fg"] = "#AAAAAA"
                 if  entry_reggender_customerlogin_spy.get() == "-" : #
                     entry_reggender_customerlogin_spy.set("Gender   ")
@@ -366,7 +378,7 @@ def Startprogram():
                     entry_register_tele["fg"] = "#AAAAAA"
                 if entry_regusername_customerlogin_spy.get() != "" and entry_regusername_customerlogin_spy.get() != "Username   " :
                     if len(entry_regusername_customerlogin_spy.get()) >= 5 :
-                        if entry_regfullname_customerlogin_spy.get() != "" and entry_regfullname_customerlogin_spy.get() != "Fullname   " :
+                        if entry_regfullname_customerlogin_spy.get() != "" and entry_regfullname_customerlogin_spy.get() != "Full name   " :
                             amount = 0
                             indentinname = 0
                             for i in entry_regfullname_customerlogin_spy.get() :
@@ -416,7 +428,7 @@ def Startprogram():
                                                                 cursor.execute(sqlinsertx, [idcus,split_fname.get(),split_lname.get(),entry_regtelephone_customerlogin_spy.get(),entry_reggender_customerlogin_spy.get(),member,point,money,favshop])
                                                                 conn.commit()
                                                                 conn.close()
-                                                                messagebox.showinfo("Admin","Register successfully")
+                                                                messagebox.showinfo("Admin","Sign up successfully")
                                                                 regisgotologin()    
                                                         else :
                                                             messagebox.showwarning("Admin","Please enter Telephone number")
@@ -433,13 +445,14 @@ def Startprogram():
                                 else :
                                     messagebox.showwarning("Admin","Please fill in exactly the format provided")
                             else :
-                                messagebox.showwarning("Admin","Please fill fullname in exactly the format provided")
+                                messagebox.showwarning("Admin","Please fill full name in exactly the format provided")
                         else :
                             messagebox.showwarning("Admin","Please enter Full name")
                     else :
                         messagebox.showwarning("Admin","Username must be at least 5 characters.")
                 else :
                     messagebox.showwarning("Admin","Please enter Username")
+
             def entry_gender_customerlogin_click(e) :
                 global combobox_reggender_customerlogin
                 global text_hine_user,text_hine_regis,text_hine_pass,text_hine_cfpass,text_hine_tel
@@ -454,7 +467,7 @@ def Startprogram():
                 text_hine_user["fg"] = "white"
                     #
                 if  entry_regfullname_customerlogin_spy.get() == "" :
-                    entry_regfullname_customerlogin_spy.set("Fullname   ") #
+                    entry_regfullname_customerlogin_spy.set("Full name   ") #
                     entry_register_fullname["fg"] = "#AAAAAA"
                     #
                 text_hine_regis["fg"] = "white"
@@ -478,6 +491,7 @@ def Startprogram():
                     entry_register_tele["fg"] = "#AAAAAA"
                     #
                 text_hine_tel["fg"] = "white"
+
             def entry_username_customerlogin_click(e) :
                 global text_hine_user,text_hine_regis,text_hine_pass,text_hine_cfpass,text_hine_tel
                 if entry_regusername_customerlogin_spy.get() == "Username   " : 
@@ -487,7 +501,7 @@ def Startprogram():
                 text_hine_user["fg"] = "red"
                     #
                 if  entry_regfullname_customerlogin_spy.get() == "" :
-                    entry_regfullname_customerlogin_spy.set("Fullname   ") 
+                    entry_regfullname_customerlogin_spy.set("Full name   ") 
                     entry_register_fullname["fg"] = "#AAAAAA"
                     #
                 text_hine_regis["fg"] = "white"
@@ -515,6 +529,7 @@ def Startprogram():
                     entry_register_tele["fg"] = "#AAAAAA"
                     #
                 text_hine_tel["fg"] = "white"
+
             def entry_fullname_customerlogin_click(e) : 
                 global text_hine_user,text_hine_regis,text_hine_pass,text_hine_cfpass,text_hine_tel
                 if entry_regusername_customerlogin_spy.get() == "" : # 
@@ -523,7 +538,7 @@ def Startprogram():
                     #
                 text_hine_user["fg"] = "white"
                     #
-                if  entry_regfullname_customerlogin_spy.get() == "Fullname   " :
+                if  entry_regfullname_customerlogin_spy.get() == "Full name   " :
                     entry_regfullname_customerlogin_spy.set("") #
                     entry_register_fullname["fg"] = "Black"
                     #
@@ -549,7 +564,8 @@ def Startprogram():
                     entry_regtelephone_customerlogin_spy.set("Telephone number   ")
                     entry_register_tele["fg"] = "#AAAAAA"   
                     #
-                text_hine_tel["fg"] = "white"    
+                text_hine_tel["fg"] = "white"  
+
             def entry_password_customerlogin_click(e) : 
                 global text_hine_user,text_hine_regis,text_hine_pass,text_hine_cfpass,text_hine_tel
                 if entry_regusername_customerlogin_spy.get() == "" : # 
@@ -559,7 +575,7 @@ def Startprogram():
                 text_hine_user["fg"] = "white"
                     #
                 if  entry_regfullname_customerlogin_spy.get() == "" :
-                    entry_regfullname_customerlogin_spy.set("Fullname   ") #
+                    entry_regfullname_customerlogin_spy.set("Full name   ") #
                     entry_register_fullname["fg"] = "#AAAAAA"
                     #
                 text_hine_regis["fg"] = "white"
@@ -585,6 +601,7 @@ def Startprogram():
                     entry_register_tele["fg"] = "#AAAAAA"
                     #
                 text_hine_tel["fg"] = "white"
+
             def entry_cfpassword_customerlogin_click(e) : 
                 global text_hine_user,text_hine_regis,text_hine_pass,text_hine_cfpass,text_hine_tel
                 if entry_regusername_customerlogin_spy.get() == "" : # 
@@ -594,7 +611,7 @@ def Startprogram():
                 text_hine_user["fg"] = "white"
                     #
                 if  entry_regfullname_customerlogin_spy.get() == "" :
-                    entry_regfullname_customerlogin_spy.set("Fullname   ") #
+                    entry_regfullname_customerlogin_spy.set("Full name   ") #
                     entry_register_fullname["fg"] = "#AAAAAA"
                     #
                 text_hine_regis["fg"] = "white"
@@ -620,6 +637,7 @@ def Startprogram():
                     entry_register_tele["fg"] = "#AAAAAA"
                     #
                 text_hine_tel["fg"] = "white"
+
             def entry_tele_customerlogin_click(e) : 
                 global text_hine_user,text_hine_regis,text_hine_pass,text_hine_cfpass,text_hine_tel
                 if entry_regusername_customerlogin_spy.get() == "" : # 
@@ -629,7 +647,7 @@ def Startprogram():
                 text_hine_user["fg"] = "white"
                     #
                 if  entry_regfullname_customerlogin_spy.get() == "" :
-                    entry_regfullname_customerlogin_spy.set("Fullname   ") #
+                    entry_regfullname_customerlogin_spy.set("Full name   ") #
                     entry_register_fullname["fg"] = "#AAAAAA"
                     #
                 text_hine_regis["fg"] = "white"
@@ -680,7 +698,7 @@ def Startprogram():
             text_hine_user = Label(frame_customerregister,text="Username must be more than 5 characters",fg="white",font="Calibri 12",bg="white")
             text_hine_user.place(relx=0.685,y=170)
             # name
-            entry_regfullname_customerlogin_spy.set("Fullname   ")
+            entry_regfullname_customerlogin_spy.set("Full name   ")
             entry_register_fullname = Entry(frame_customerregister,text="",bg="#FFFFFF",fg="#AAAAAA",font="Calibri 18 bold",textvariable=entry_regfullname_customerlogin_spy,width=25,border=0)
             entry_register_fullname.place(relx=0.365,y=220)
             #
@@ -695,7 +713,7 @@ def Startprogram():
             entry_register_password = Entry(frame_customerregister,text="",bg="#FFFFFF",fg="#AAAAAA",font="Calibri 18 bold",textvariable=entry_regpassword_customerlogin_spy,width=25,border=0)
             entry_register_password.place(relx=0.365,y=340)
             #
-            text_hine_pass = Label(frame_customerregister,text="Create your Password",fg="white",font="Calibri 12",bg="white")
+            text_hine_pass = Label(frame_customerregister,text="Password must be at least 8 characters",fg="white",font="Calibri 12",bg="white")
             text_hine_pass.place(relx=0.685,y=345)
             # repassword
             entry_regcfpassword_customerlogin_spy.set("Confirm Password   ")
@@ -709,7 +727,7 @@ def Startprogram():
             entry_register_tele = Entry(frame_customerregister,text="",bg="#FFFFFF",fg="#AAAAAA",font="Calibri 18 bold",textvariable=entry_regtelephone_customerlogin_spy,width=25,border=0)
             entry_register_tele.place(relx=0.365,y=460)
             #
-            text_hine_tel = Label(frame_customerregister,text="Please enter your Telephone number",fg="white",font="Calibri 12",bg="white")
+            text_hine_tel = Label(frame_customerregister,text="10 digit mobile number without - or space",fg="white",font="Calibri 12",bg="white")
             text_hine_tel.place(relx=0.685,y=465)
             # button = Confirm
             button_confirm_customerlogin = Button(frame_customerregister,text="Confirm",bg="#7D92BE",fg="#FFFFFF",font="Calibri 18 bold",width=20)
@@ -726,6 +744,7 @@ def Startprogram():
             entry_register_password.bind("<Button-1>",entry_password_customerlogin_click)
             entry_register_cfpassword.bind("<Button-1>",entry_cfpassword_customerlogin_click)
             entry_register_tele.bind("<Button-1>",entry_tele_customerlogin_click)
+
         # admin login page
         def adminlogin() : # login page for admin
             def exitx() :
@@ -819,7 +838,7 @@ def Startprogram():
                                                 Label(yayoi_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(yayoi_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                yayoi1_2 = Button(yayoi_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:yayoi_addtostore(result[0][1],number))
+                                                yayoi1_2 = Button(yayoi_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:yayoi_addtostore(result[0][1],number))
                                                 yayoi1_2.place(x=660,y=470)
                                         elif number == 4 or number == 5 or number == 6:
                                             sql = """
@@ -832,7 +851,7 @@ def Startprogram():
                                                 Label(yayoi_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(yayoi_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                yayoi1_2 = Button(yayoi_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:yayoi_addtostore(result[0][1],number))
+                                                yayoi1_2 = Button(yayoi_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:yayoi_addtostore(result[0][1],number))
                                                 yayoi1_2.place(x=660,y=470)
                                         elif number == 7 or number == 8:
                                             sql = """
@@ -845,7 +864,7 @@ def Startprogram():
                                                 Label(yayoi_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(yayoi_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                yayoi1_2 = Button(yayoi_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:yayoi_addtostore(result[0][1],number))
+                                                yayoi1_2 = Button(yayoi_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:yayoi_addtostore(result[0][1],number))
                                                 yayoi1_2.place(x=660,y=470)
                                     queuebut["state"] = "disabled"
                                     tablebut["state"] = "active"
@@ -859,6 +878,7 @@ def Startprogram():
                                     Label(yayoi_queue,text="1-2 People",bg="#FFDDEB",font="Calibri 18").place(x=40,y=65)
                                     Label(yayoi_queue,text="3-4 People",bg="#FFDDEB",font="Calibri 18").place(x=40,y=215)
                                     Label(yayoi_queue,text="5-6 People",bg="#FFDDEB",font="Calibri 18").place(x=40,y=365)
+
                                     # conn
                                     conn = sqlite3.connect("projectdb.db")
                                     cursor = conn.cursor()
@@ -923,6 +943,7 @@ def Startprogram():
                                         table_8 = Button(yayoi_queue,image=teble_red_act,bg="#FFDDEB",font="Calibri 22 bold",border=0,activebackground="#FFDDEB",text="8",compound="center",fg="white",command=lambda:queueinfomation(8),state="disabled")
                                         table_8.place(x=140,y=420)
                                     conn.close()
+
                                 def yayoi_table() :
                                     global yayoi_table_frame
                                     # def
@@ -1155,6 +1176,7 @@ def Startprogram():
                                 showtext = Label(yayoi_admin_frame,text="",font="Calibri 24 bold",bg="#FFA1C9")
                                 showtext.place(x=250,y=30)
                                 yayoi_table()
+
                             # AFTERYOU
                             elif result[3] == "AFTERYOU" :
                                 frame_adminlogin.destroy()
@@ -1197,7 +1219,7 @@ def Startprogram():
                                                 conn.close()
                                             else :
                                                 pass
-                                        Label(afteryou_queue,image=queue_frame,bg="#FFE296").place(x=645,y=5)
+                                        Label(afteryou_queue,image=queue_frame,bg="#FEF9E8").place(x=645,y=5)
                                         Label(afteryou_queue,text="Table %s"%(number),font="Calibri 24 bold",bg='#FFE296').place(x=670,y=20)
                                         Label(afteryou_queue,text="No.",font="Calibri 18",bg='#FFE296').place(x=660,y=70)
                                         Label(afteryou_queue,text="Name",font="Calibri 18",bg='#FFE296').place(x=860,y=70)
@@ -1215,7 +1237,7 @@ def Startprogram():
                                                 Label(afteryou_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(afteryou_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                afteryou1_2 = Button(afteryou_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:afteryou_addtostore(result[0][1],number))
+                                                afteryou1_2 = Button(afteryou_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:afteryou_addtostore(result[0][1],number))
                                                 afteryou1_2.place(x=660,y=470)
                                         elif number == 4 or number == 5 or number == 6:
                                             sql = """
@@ -1229,7 +1251,7 @@ def Startprogram():
                                                 Label(afteryou_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(afteryou_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                afteryou1_2 = Button(afteryou_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:afteryou_addtostore(result[0][1],number))
+                                                afteryou1_2 = Button(afteryou_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:afteryou_addtostore(result[0][1],number))
                                                 afteryou1_2.place(x=660,y=470)
                                         elif number == 7 or number == 8:
                                             sql = """
@@ -1243,7 +1265,7 @@ def Startprogram():
                                                 Label(afteryou_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(afteryou_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                afteryou1_2 = Button(afteryou_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:afteryou_addtostore(result[0][1],number))
+                                                afteryou1_2 = Button(afteryou_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:afteryou_addtostore(result[0][1],number))
                                                 afteryou1_2.place(x=660,y=470)
                                     queuebut["state"] = "disabled"
                                     tablebut["state"] = "active"
@@ -1321,6 +1343,7 @@ def Startprogram():
                                         table_8 = Button(afteryou_queue,image=teble_red_act,bg="#FFDDEB",font="Calibri 22 bold",border=0,activebackground="#FFDDEB",text="8",compound="center",fg="white",command=lambda:queueinfomation(8),state="disabled")
                                         table_8.place(x=140,y=420)
                                     conn.close()
+
                                 def afteryou_table() :
                                     global afteryou_table_frame
                                     # def
@@ -1543,16 +1566,18 @@ def Startprogram():
                                         table_8 = Button(afteryou_table_frame,image=teble_red_act,bg="#FFDDEB",font="Calibri 22 bold",border=0,activebackground="#FFDDEB",text="8",compound="center",fg="white",command=lambda:tableinfomation(8),state="disabled")
                                         table_8.place(x=140,y=420)
                                     conn.close()
+
                                 # Start             
                                 Label(afteryou_admin_frame,image=afteryou_header,bg="#FFFBEA").place(x=-2,y=-15)
                                 Label(afteryou_admin_frame,image=afteryou_logo,bg="#FFFBEA").place(x=40,y=0)
-                                tablebut = Button(afteryou_admin_frame,image=button_yellow,border=0,activebackground="white",activeforeground="white",bg="#FFFBEA",text="Table",compound="center",font="Calibri 16",command=afteryou_table)
+                                tablebut = Button(afteryou_admin_frame,image=button_yellow,border=0,activebackground="#FFFBEA",activeforeground="#FFFBEA",bg="#FFFBEA",text="Table",compound="center",font="Calibri 16",command=afteryou_table)
                                 tablebut.place(x=880,y=112)
-                                queuebut = Button(afteryou_admin_frame,image=button_yellow,border=0,activebackground="white",activeforeground="white",bg="#FFFBEA",text="Queue",compound="center",font="Calibri 16",command=afteryou_queue)
+                                queuebut = Button(afteryou_admin_frame,image=button_yellow,border=0,activebackground="#FFFBEA",activeforeground="#FFFBEA",bg="#FFFBEA",text="Queue",compound="center",font="Calibri 16",command=afteryou_queue)
                                 queuebut.place(x=780,y=112)
                                 showtext = Label(afteryou_admin_frame,text="",font="Calibri 24 bold",bg="#DCC6AE")
                                 showtext.place(x=250,y=30)
                                 afteryou_table()
+
                             # KYO
                             elif result[3] == "KYO" :
                                 frame_adminlogin.destroy()
@@ -1613,7 +1638,7 @@ def Startprogram():
                                                 Label(kyo_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(kyo_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                kyo1_2 = Button(kyo_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:kyo_addtostore(result[0][1],number))
+                                                kyo1_2 = Button(kyo_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:kyo_addtostore(result[0][1],number))
                                                 kyo1_2.place(x=660,y=470)
                                         elif number == 4 or number == 5 or number == 6:
                                             
@@ -1628,7 +1653,7 @@ def Startprogram():
                                                 Label(kyo_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(kyo_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                kyo1_2 = Button(kyo_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:kyo_addtostore(result[0][1],number))
+                                                kyo1_2 = Button(kyo_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:kyo_addtostore(result[0][1],number))
                                                 kyo1_2.place(x=660,y=470)
                                         elif number == 7 or number == 8:
                                             
@@ -1643,7 +1668,7 @@ def Startprogram():
                                                 Label(kyo_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(kyo_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                kyo1_2 = Button(kyo_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:kyo_addtostore(result[0][1],number))
+                                                kyo1_2 = Button(kyo_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:kyo_addtostore(result[0][1],number))
                                                 kyo1_2.place(x=660,y=470)
                                     queuebut["state"] = "disabled"
                                     tablebut["state"] = "active"
@@ -1721,6 +1746,7 @@ def Startprogram():
                                         table_8 = Button(kyo_queue,image=teble_red_act,bg="#FFDDEB",font="Calibri 22 bold",border=0,activebackground="#FFDDEB",text="8",compound="center",fg="white",command=lambda:queueinfomation(8),state="disabled")
                                         table_8.place(x=140,y=420)
                                     conn.close()
+
                                 def kyo_table() :
                                     global kyo_table_frame
                                     # def
@@ -1953,6 +1979,7 @@ def Startprogram():
                                 showtext = Label(kyo_admin_frame,text="",font="Calibri 24 bold",bg="#B1A698")
                                 showtext.place(x=250,y=30)
                                 kyo_table()
+
                             # CODE
                             elif result[3] == "CODE" :
                                 frame_adminlogin.destroy()
@@ -2013,7 +2040,7 @@ def Startprogram():
                                                 Label(code_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(code_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                code1_2 = Button(code_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:code_addtostore(result[0][1],number))
+                                                code1_2 = Button(code_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:code_addtostore(result[0][1],number))
                                                 code1_2.place(x=660,y=470)
                                         elif number == 4 or number == 5 or number == 6:
                                             
@@ -2028,7 +2055,7 @@ def Startprogram():
                                                 Label(code_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(code_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                code1_2 = Button(code_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:code_addtostore(result[0][1],number))
+                                                code1_2 = Button(code_queue,text="Book Table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:code_addtostore(result[0][1],number))
                                                 code1_2.place(x=660,y=470)
                                         elif number == 7 or number == 8:
                                             
@@ -2043,7 +2070,7 @@ def Startprogram():
                                                 Label(code_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(code_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                code1_2 = Button(code_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:code_addtostore(result[0][1],number))
+                                                code1_2 = Button(code_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:code_addtostore(result[0][1],number))
                                                 code1_2.place(x=660,y=470)
                                     queuebut["state"] = "disabled"
                                     tablebut["state"] = "active"
@@ -2121,6 +2148,7 @@ def Startprogram():
                                         table_8 = Button(code_queue,image=teble_red_act,bg="#FFDDEB",font="Calibri 22 bold",border=0,activebackground="#FFDDEB",text="8",compound="center",fg="white",command=lambda:queueinfomation(8),state="disabled")
                                         table_8.place(x=140,y=420)
                                     conn.close()
+
                                 def code_table() :
                                     global code_table_frame
                                     # def
@@ -2353,6 +2381,7 @@ def Startprogram():
                                 showtext = Label(code_admin_frame,text="",font="Calibri 24 bold",bg="#F8B4B9")
                                 showtext.place(x=250,y=30)
                                 code_table()
+
                             # SHIN
                             elif result[3] == "SHIN" :
                                 frame_adminlogin.destroy()
@@ -2413,7 +2442,7 @@ def Startprogram():
                                                 Label(shin_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(shin_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                shin1_2 = Button(shin_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:shin_addtostore(result[0][1],number))
+                                                shin1_2 = Button(shin_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:shin_addtostore(result[0][1],number))
                                                 shin1_2.place(x=660,y=470)
                                         elif number == 4 or number == 5 or number == 6:
                                             
@@ -2428,7 +2457,7 @@ def Startprogram():
                                                 Label(shin_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(shin_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                shin1_2 = Button(shin_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:shin_addtostore(result[0][1],number))
+                                                shin1_2 = Button(shin_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:shin_addtostore(result[0][1],number))
                                                 shin1_2.place(x=660,y=470)
                                         elif number == 7 or number == 8:
                                             
@@ -2443,7 +2472,7 @@ def Startprogram():
                                                 Label(shin_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(shin_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                shin1_2 = Button(shin_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:shin_addtostore(result[0][1],number))
+                                                shin1_2 = Button(shin_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:shin_addtostore(result[0][1],number))
                                                 shin1_2.place(x=660,y=470)
                                     queuebut["state"] = "disabled"
                                     tablebut["state"] = "active"
@@ -2813,7 +2842,7 @@ def Startprogram():
                                                 Label(ohk_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(ohk_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                ohk1_2 = Button(ohk_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:ohk_addtostore(result[0][1],number))
+                                                ohk1_2 = Button(ohk_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:ohk_addtostore(result[0][1],number))
                                                 ohk1_2.place(x=660,y=470)
                                         elif number == 4 or number == 5 or number == 6:
                                             
@@ -2828,7 +2857,7 @@ def Startprogram():
                                                 Label(ohk_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(ohk_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                ohk1_2 = Button(ohk_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:ohk_addtostore(result[0][1],number))
+                                                ohk1_2 = Button(ohk_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:ohk_addtostore(result[0][1],number))
                                                 ohk1_2.place(x=660,y=470)
                                         elif number == 7 or number == 8:
                                             
@@ -2843,7 +2872,7 @@ def Startprogram():
                                                 Label(ohk_queue,text=data[0],bg="#FFE296").place(x=660,y=yasix)
                                                 Label(ohk_queue,text=data[1],bg="#FFE296").place(x=860,y=yasix)
                                                 yasix = yasix +70
-                                                ohk1_2 = Button(ohk_queue,text="bookatble",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:ohk_addtostore(result[0][1],number))
+                                                ohk1_2 = Button(ohk_queue,text="Book table",font="Calibri 18",bg='green',border=0,fg="white",command=lambda:ohk_addtostore(result[0][1],number))
                                                 ohk1_2.place(x=660,y=470)
                                     queuebut["state"] = "disabled"
                                     tablebut["state"] = "active"
@@ -3213,6 +3242,7 @@ def Startprogram():
             if entry_password_admin_spy.get() == "Password   " :
                 entry_password_admin.bind("<Button-1>",entry_password_admin_click)
             button_signin_admin.bind("<Button-1>",button_signin_admin_click)
+
     # def 2 customer mainpage
     def allfunctionin_mainpage() : # all function about mainpage
         global customermainpage , adminmainpage 
@@ -3397,7 +3427,7 @@ def Startprogram():
                                                     back_but = Button(book1processframe,text="< Back",border=0,bg="#15345F",fg="white",command=back,activebackground="#15345F",activeforeground="white")
                                                     back_but.place(x=10,y=10)
                                                     # ["Normal Bedroom,1 bed","Normal Bedroom,2 bed","Premium Bedroom","Executive Room"]
-                                                    text_info = Label(book1processframe,text="Booking Information",font="Calibri 24 bold",bg="#21253E",fg="white").place(x=300,y=120)  #fix
+                                                    text_info = Label(book1processframe,text="Booking Information",font="Calibri 24 bold",bg="#21253E",fg="white").place(x=300,y=120)  
                                                     text_chkinday = Label(book1processframe,text="Check in date : %s %s"%(in_day_spy.get(),in_month_spy.get()),bg="#21253E",fg="white").place(x=160,y=180)
                                                     text_chkoutday = Label(book1processframe,text="Check out date : %s %s"%(out_day_spy.get(),out_month_spy.get()),bg="#21253E",fg="white").place(x=160,y=240)
                                                     text_roomtype = Label(book1processframe,text="Room Type : %s"%(roomt_spy.get()),bg="#21253E",fg="white").place(x=160,y=300)
@@ -4144,6 +4174,7 @@ def Startprogram():
                     hotel_shop_1 = Button(all_hotel,image=hotel_shop1,bg="#21253E",border=0,activebackground="#21253E",command=hotel1page).place(x=8,y=380)
                     hotel_shop_2 = Button(all_hotel,image=hotel_shop2,bg="#21253E",border=0,activebackground="#21253E",command=hotel2page).place(x=306,y=380)
                     hotel_shop_3 = Button(all_hotel,image=hotel_shop3,bg="#21253E",border=0,activebackground="#21253E",command=hotel3page).place(x=604,y=380)
+
                 def category_dessert() : # Dessert
                     all_dessert = Frame(frame_home,bg="#F8EFE0")
                     all_dessert.place(x=0,y=100,width=w-100,height=h-100)
@@ -4272,6 +4303,7 @@ def Startprogram():
                 #
                 show_shop1 = Button(frame_home,image=frameshop_shin,border=0,activebackground="#F8EFE0",command=shop5,bg="#F8EFE0")
                 show_shop1.place(x=30,y=400)
+
                 def favorite(shopname) :
                     sql = """
                                 UPDATE customer_information
@@ -4302,6 +4334,7 @@ def Startprogram():
                 else :
                     favs3 = Button(frame_home,image=addtofav_not,border=0,bg="white",command= lambda:favorite("kyo") )
                     favs3.place(x=815,y=555)
+                    
             def account_frame() :
                 # button_wallet_activate
                 home_button["image"] = button_home_not
@@ -4321,8 +4354,8 @@ def Startprogram():
                 cursor.execute(sql,[id])
                 result = cursor.fetchone()
                 # widget
-                bg_1 = Label(account_home,bg="#FFF4D7").place(x=20,y=20,width=500,height=500)
-                bg_2 = Label(account_home,bg="#F3F3F3").place(x=540,y=20,width=340,height=500)
+                bg_1 = Label(account_home,bg="#FFF4D7").place(x=20,y=20,width=425,height=500)
+                bg_2 = Label(account_home,bg="#F3F3F3").place(x=465,y=20,width=365,height=500)
                 # bg_1
                 label_info_account = Label(account_home,text="Information",font='Candara 20 bold',bg="#FFF4D7")
                 label_info_account.place(x=30,y=30)
@@ -4344,31 +4377,31 @@ def Startprogram():
                 label_infogender_account.place(x=150,y=220)
                 # bg_2
                 label_member_account = Label(account_home,text="Member level :",bg="#F3F3F3")
-                label_member_account.place(x=550,y=220)
+                label_member_account.place(x=480,y=220)
                 label_infomember_account = Label(account_home,text=member_spy.get(),bg="#F3F3F3")
-                label_infomember_account.place(x=740,y=220)
+                label_infomember_account.place(x=680,y=220)
                 # bg_1
-                button_manage_account = Button(account_home, text="Manage Account" ,image=button_manage, border=0, bg="#F8EFE0",command= lambda: manageaccountprocess(userid_spy.get()),activebackground="#F8EFE0",activeforeground="#F8EFE0") # manage account
+                button_manage_account = Button(account_home, text="Manage Account" ,image=button_manage, border=0, bg="#FFF4D7",command= lambda: manageaccountprocess(userid_spy.get()),activebackground="#FFF4D7",activeforeground="#F8EFE0") # manage account
                 button_manage_account.place(x=30,y=455)
                 # bg_1
-                button_cpass_account = Button(account_home, text="Change password" ,image=button_change, border=0, bg="#F8EFE0",command= lambda: managecpassprocess(userid_spy.get()),activebackground="#F8EFE0",activeforeground="#F8EFE0") # manage password
-                button_cpass_account.place(x=250,y=455)
+                button_cpass_account = Button(account_home, text="Change password" ,image=button_change, border=0, bg="#FFF4D7",command= lambda: managecpassprocess(userid_spy.get()),activebackground="#FFF4D7",activeforeground="#F8EFE0") # manage password
+                button_cpass_account.place(x=235,y=455)
                 # bg_2
                 label_wallet_account = Label(account_home,text="Wallet",font='Candara 20 bold',bg="#F3F3F3")
-                label_wallet_account.place(x=550,y=30)
+                label_wallet_account.place(x=480,y=30)
                 # bg_2
                 label_money_account = Label(account_home,text="Balance :",bg="#F3F3F3")
-                label_money_account.place(x=550,y=120)
+                label_money_account.place(x=480,y=120)
                 label_infomoney_account = Label(account_home,text=money_spy.get(),bg="#F3F3F3")
-                label_infomoney_account.place(x=660,y=120)
+                label_infomoney_account.place(x=600,y=120)
                 # bg_2
                 label_point_account = Label(account_home,text="Point :",bg="#F3F3F3")
-                label_point_account.place(x=550,y=170)
+                label_point_account.place(x=480,y=170)
                 label_infopoint_account = Label(account_home,text="%0.f"%float(point_spy.get()),bg="#F3F3F3")
-                label_infopoint_account.place(x=660,y=170)
+                label_infopoint_account.place(x=600,y=170)
                 # bg_2
                 button_topup_account = Button(account_home, text=" Top up & Point " ,image=button_topup, border=0,bg="#F3F3F3", fg="black",command= lambda: topupprocess(userid_spy.get()),activebackground="#F3F3F3",activeforeground="black") # manage account
-                button_topup_account.place(x=550,y=455)
+                button_topup_account.place(x=480,y=455)
             def queue_frame() :
                 #
                 if whatqueue.get() == "empty" :
@@ -4402,7 +4435,7 @@ def Startprogram():
                                     elif result[3] == "ready" :
                                         yayoi_mainprogram(result_2[0],userfname_spy.get())
                                 def cancelq() :
-                                    dis = messagebox.askokcancel("Admin","Do you want to Cancel?")
+                                    dis = messagebox.askokcancel("Admin","Do you want to Cancel queue?")
                                     if dis == True :
                                         conn = sqlite3.connect("projectdb.db")
                                         cursor = conn.cursor()
@@ -4499,7 +4532,7 @@ def Startprogram():
                                     elif result[3] == "ready" :
                                         afteryou_mainprogram(result_2[0],userfname_spy.get())
                                 def cancelq() :
-                                    dis = messagebox.askokcancel("Admin","Do you want to cancel")
+                                    dis = messagebox.askokcancel("Admin","Do you want to Cancel queue?")
                                     if dis == True :
                                         conn = sqlite3.connect("projectdb.db")
                                         cursor = conn.cursor()
@@ -4594,7 +4627,7 @@ def Startprogram():
                                     elif result[3] == "ready" :
                                         kyo_mainprogram(result_2[0],userfname_spy.get())
                                 def cancelq() :
-                                    dis = messagebox.askokcancel("Admin","Do you want to cancel")
+                                    dis = messagebox.askokcancel("Admin","Do you want to Cancel queue?")
                                     if dis == True :
                                         conn = sqlite3.connect("projectdb.db")
                                         cursor = conn.cursor()
@@ -4689,7 +4722,7 @@ def Startprogram():
                                     elif result[3] == "ready" :
                                         code_mainprogram(result_2[0],userfname_spy.get())
                                 def cancelq() :
-                                    dis = messagebox.askokcancel("Admin","Do you want to cancel")
+                                    dis = messagebox.askokcancel("Admin","Do you want to Cancel queue?")
                                     if dis == True :
                                         conn = sqlite3.connect("projectdb.db")
                                         cursor = conn.cursor()
@@ -4784,7 +4817,7 @@ def Startprogram():
                                     elif result[3] == "ready" :
                                         shin_mainprogram(result_2[0],userfname_spy.get())
                                 def cancelq() :
-                                    dis = messagebox.askokcancel("Admin","Do you want to cancel")
+                                    dis = messagebox.askokcancel("Admin","Do you want to Cancel queue?")
                                     if dis == True :
                                         conn = sqlite3.connect("projectdb.db")
                                         cursor = conn.cursor()
@@ -4879,7 +4912,7 @@ def Startprogram():
                                     elif result[3] == "ready" :
                                         ohk_mainprogram(result_2[0],userfname_spy.get())
                                 def cancelq() :
-                                    dis = messagebox.askokcancel("Admin","Do you want to cancel")
+                                    dis = messagebox.askokcancel("Admin","Do you want to Cancel queue?")
                                     if dis == True :
                                         conn = sqlite3.connect("projectdb.db")
                                         cursor = conn.cursor()
@@ -4950,6 +4983,7 @@ def Startprogram():
                     combo_amount.place(x=340,y=405)
                     chkque = Button(wallet_home,image=amountpeople_1,bg="#ECC998",border=0,activebackground="#ECC998",command=checkamt)
                     chkque.place(x=660,y=400)
+
             def favshop_frame() :
                 #
                 home_button["image"] = button_home_not
@@ -4978,12 +5012,14 @@ def Startprogram():
             # call function 
             framemenu()
             home_frame()
+
     # def 3 exit function
     def allexitfuntion() :
         global regisgotologin , manageaccountprocess , managecpassprocess , topupprocess, yayoi_mainprogram , afteryou_mainprogram , kyo_mainprogram , code_mainprogram , shin_mainprogram , ohk_mainprogram , backtomainpage
         def regisgotologin() :
             customerlogin()
             frame_customerregister.destroy()
+        
         def manageaccountprocess(id) :
             # function
             def changeinfo() :
@@ -5054,9 +5090,10 @@ def Startprogram():
             # button = back
             button_back_manage = Button(manageaccount_frame,text="< Back",bg="#F8EFE0",fg="black",width=20,command=backtoaccount,border=0,activebackground="#F8EFE0") 
             button_back_manage.place(x=-90,y=10)
+
         def managecpassprocess(id) :
             # function
-            def changeprocess() :
+            def changeprocess() :  
                 if new_password.get() != "" :
                     if new_cfpassword.get() != "" :
                         if new_password.get() == new_cfpassword.get() :
@@ -5081,6 +5118,7 @@ def Startprogram():
                        messagebox.showwarning("Admin","Please Enter Comfirm Password") 
                 else :
                     messagebox.showwarning("Admin","Please Enter Password")   
+
             def backtomenu() :
                 new_password.set("")
                 new_cfpassword.set("")
@@ -5109,9 +5147,9 @@ def Startprogram():
             label_cfpassword_managecpass = Label(managecpass_frame,text="Confrim new password :",bg="#F8EFE0")
             label_cfpassword_managecpass.place(x=110,y=300)
             #
-            entry_password_managecpass = Entry(managecpass_frame,width=20,textvariable=new_password)
+            entry_password_managecpass = Entry(managecpass_frame,width=20,textvariable=new_password,show='*')
             entry_password_managecpass.place(x=400,y=230)
-            entry_cfpassword_managecpass = Entry(managecpass_frame,width=20,textvariable=new_cfpassword)
+            entry_cfpassword_managecpass = Entry(managecpass_frame,width=20,textvariable=new_cfpassword,show='*')
             entry_cfpassword_managecpass.place(x=400,y=300)
             #
             button_confirm_managecpass = Button(managecpass_frame,text="Confirm",image=button_cf,command=changeprocess,bg="#F8EFE0",fg="white",activebackground="#F8EFE0",border=0)
@@ -5119,6 +5157,7 @@ def Startprogram():
             #
             button_back_managecpass = Button(managecpass_frame,text="< Back",command=backtomenu,border=0,bg="#F8EFE0",activebackground="#F8EFE0")
             button_back_managecpass.place(x=10,y=10)
+
         # shop
         def topupprocess(id) :
             # function
@@ -5204,6 +5243,7 @@ def Startprogram():
                 #
                 check_payment = Button(topup_frame,text="Confirm",command=paymenthappen,border=0)
                 check_payment.place(x=540,y=230)
+
             def buttonpoint() :
                 bg_4 = Label(topup_frame,bg="#FFFFFF")
                 bg_4.place(x=500,y=80,width=370,height=520)
@@ -5300,6 +5340,66 @@ def Startprogram():
                 item_2.bind("<Leave>",item_2_outer)
                 item_3.bind("<Enter>",item_3_enter)
                 item_3.bind("<Leave>",item_3_outer)
+
+            def buttonmember() :
+                bg_5 = Label(topup_frame,bg="#FFFFFF")
+                bg_5.place(x=500,y=80,width=370,height=520)
+                point_process_text = Label(topup_frame,text="Membership",font="Calibri 24 bold",bg="white")
+                point_process_text.place(x=590,y=100)
+                # function
+                def process_1 () :
+                    messagebox.showinfo("Admin","None level is base on everyone")
+                def process_2 () :
+                    ans = messagebox.askquestion("Admin","Do you want to buy memebership Level1 ?") #yk
+                    if ans == "yes" :
+                        sql_chkmoney = """
+                                SELECT money_customer
+                                FROM customer_information
+                                WHERE id_customer=?"""
+                        cursor.execute(sql_chkmoney,[userid.get()])
+                        result = cursor.fetchone() 
+                        if float(result[0]) > float(150) :
+                            # money
+                            new_balance = (float(result[0]) - float(150))//1
+                            sql_money = """
+                                    UPDATE customer_information
+                                    SET money_customer=? , member_customer=? 
+                                    WHERE id_customer=?"""
+                            cursor.execute(sql_money,[new_balance,"Level1",userid.get()])
+                            conn.commit()
+                            messagebox.showinfo("Admin","Payment successfully")
+                        else :
+                            pass
+                    else :
+                        pass
+                def process_3 () :
+                    ans = messagebox.askquestion("Admin","Do you want to buy memebership Level2 ?") 
+                    if ans == "yes" :
+                        sql_chkmoney = """
+                                SELECT money_customer
+                                FROM customer_information
+                                WHERE id_customer=?"""
+                        cursor.execute(sql_chkmoney,[userid.get()])
+                        result = cursor.fetchone() 
+                        if float(result[0]) > float(300) :
+                            # money
+                            new_balance = (float(result[0]) - float(300))//1
+                            sql_money = """
+                                    UPDATE customer_information
+                                    SET money_customer=? , member_customer=? 
+                                    WHERE id_customer=?"""
+                            cursor.execute(sql_money,[new_balance,"Level2",userid.get()])
+                            conn.commit()
+                            messagebox.showinfo("Admin","Payment successfully")
+                        else :
+                            pass
+                    else :
+                        pass
+                #
+                text_1 = Button(topup_frame,image=membershiplevel_1,bg="white",border=0,activebackground="white",command=process_1).place(x=530,y=170)
+                text_2 = Button(topup_frame,image=membershiplevel_2,bg="white",border=0,activebackground="white",command=process_2).place(x=530,y=300)
+                text_3 = Button(topup_frame,image=membershiplevel_3,bg="white",border=0,activebackground="white",command=process_3).place(x=530,y=430)
+                
             def backtoaccount() :
                 customermainpage(id)
                 account_frame()
@@ -5309,6 +5409,7 @@ def Startprogram():
             userid.set(id)
             pointleft = StringVar()
             moneyleft = StringVar()
+            memberleft = StringVar()
             #
             topup_frame = Frame(root,bg="#F8EFE0")
             topup_frame.place(x=100,y=0,width=w-100,height=h)
@@ -5323,36 +5424,46 @@ def Startprogram():
             result = cursor.fetchone()
             # widget
             bg_1 = Label(topup_frame,image=frame_point,bg="#F8EFE0",border=0)
-            bg_1.place(x=20,y=130)
+            bg_1.place(x=20,y=110)
             bg_2 = Label(topup_frame,image=frame_money,bg="#F8EFE0",border=0)
-            bg_2.place(x=20,y=360)
+            bg_2.place(x=20,y=320)
+            bg_3 = Label(topup_frame,image=membership_frame,bg="#F8EFE0",border=0)
+            bg_3.place(x=20,y=530)
             #
             text_point_topup = Label(topup_frame,text="Point",font="Calibri 24 bold",bg="#F8EFE0")
-            text_point_topup.place(x=20,y=70)
+            text_point_topup.place(x=20,y=50)
             text_money_topup = Label(topup_frame,text="Money",font="Calibri 24 bold",bg="#F8EFE0")
-            text_money_topup.place(x=20,y=300)
+            text_money_topup.place(x=20,y=260)
+            text_member_topup = Label(topup_frame,text="Membership",font="Calibri 24 bold",bg="#F8EFE0")
+            text_member_topup.place(x=20,y=470)
             #
             button_topup_topup = Button(topup_frame,text="Top up",image=button_money,command=buttontopup,bg="#DDEAD6",fg="white",activebackground="#DDEAD6",border=0)
-            button_topup_topup.place(x=300,y=400)
+            button_topup_topup.place(x=300,y=360)
             button_point_topup = Button(topup_frame,text="Point",image=button_exc,command=buttonpoint,bg="#FFEAEA",fg="white",activebackground="#FFEAEA",border=0)
-            button_point_topup.place(x=300,y=170)
+            button_point_topup.place(x=300,y=150)
             button_back_topup = Button(topup_frame,text="< Back",width=10,command=backtoaccount,bg="#F8EFE0",fg="black",border=0)
-            button_back_topup.place(x=-10,y=10)
+            button_back_topup.place(x=-10,y=5)
+            button_member_ship = Button(topup_frame,text="membership",image=membership_but,border=0,bg="#D6E9EA",activebackground="#D6E9EA",command=buttonmember)
+            button_member_ship.place(x=300,y=570)
             # show point
             conn = sqlite3.connect("projectdb.db")
             cursor = conn.cursor()
             sql ="""
-                        SELECT point_customer,money_customer
+                        SELECT point_customer,money_customer,member_customer
                         FROM customer_information
                         WHERE id_customer=? """
             cursor.execute(sql,[userid.get()])
             result = cursor.fetchone()
             pointleft.set(result[0])
             moneyleft.set(result[1])
+            memberleft.set(result[2])
             show_point_topup = Label(topup_frame,text="%0.f"%float(pointleft.get()),bg="#FFEAEA")
-            show_point_topup.place(x=100,y=180)
+            show_point_topup.place(x=100,y=160)
             show_money_topup = Label(topup_frame,text="%0.f"%float(moneyleft.get()),bg="#DDEAD6")
-            show_money_topup.place(x=100,y=410)
+            show_money_topup.place(x=100,y=370)
+            show_member_level = Label(topup_frame,text=memberleft.get(),bg="#D6E9EA")
+            show_member_level.place(x=100,y=580)
+
         def yayoi_mainprogram(table,customername) :
             global yayoishop_indexpage,yayoishop_indexmenubar,yayoishop_tablex
             yayoiroot = Frame(root,bg="white")
@@ -5372,6 +5483,7 @@ def Startprogram():
             yayoishop_indexmenubar.set("0")
             yayoishop_tablex = StringVar()
             yayoishop_tablex.set(table)
+
             def yayoishop_addtocartprocess(ordername,price) :
                 statusx = "NF"
                 amount = 1
@@ -5419,6 +5531,7 @@ def Startprogram():
                     lenorder = StringVar()
                     lenorder.set(nuborder)
                     yayoishop_amount_order["text"] = lenorder.get()
+
             def yayoishop_click1(e) :
                 if yayoishop_indexpage.get() == "1" :
                     yayoishop_frameone.destroy()
@@ -5555,6 +5668,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(yayoishop_frameone,image=yayoishop_mart_photo,border=0,command=lambda:yayoishop_addtocartprocess("เอเมอรัล โฟลว์","95"))
                 mart_number_10.place(x=939,y=503)
+
             def yayoishop_frame_two() :
                 global yayoishop_frametwo
                 yayoishop_indexpage.set("2")
@@ -5611,6 +5725,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(yayoishop_frametwo,image=yayoishop_mart_photo,border=0,command=lambda:yayoishop_addtocartprocess("เซตปลากะพงชุบแป้งทอด","189"))
                 mart_number_10.place(x=939,y=503)
+
             def yayoishop_frame_three() :
                 global yayoishop_framethree
                 yayoishop_indexpage.set("3")
@@ -5667,6 +5782,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(yayoishop_framethree,image=yayoishop_mart_photo,border=0,command=lambda:yayoishop_addtocartprocess("น้ำแร่","25"))
                 mart_number_10.place(x=939,y=503)
+
             def yayoishop_frame_four() :
                 global yayoishop_framefour
                 yayoishop_indexpage.set("4")
@@ -5718,6 +5834,7 @@ def Startprogram():
                 mart_number_8.place(x=539,y=503)
                 mart_number_9 = Button(yayoishop_framefour,image=yayoishop_mart_photo,border=0,command=lambda:yayoishop_addtocartprocess("โซบะเย็น","29"))
                 mart_number_9.place(x=739,y=503)
+
             def yayoishop_frame_five() :
                 global yayoishop_framefive
                 yayoishop_indexpage.set("5")
@@ -5774,6 +5891,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(yayoishop_framefive,image=yayoishop_mart_photo,border=0,command=lambda:yayoishop_addtocartprocess("ข้าวหน้าแซลมอน ไข่กุ้ง","229"))
                 mart_number_10.place(x=939,y=503)
+
             def yayoishop_menuframe() :
                 global yayoishop_cate_1 , yayoishop_cate_2 , yayoishop_cate_3 , yayoishop_cate_4 , yayoishop_cate_5 , yayoishop_indexmenubar
                 yayoishop_menu_butt["state"] = "disabled"
@@ -5815,6 +5933,7 @@ def Startprogram():
                 yayoishop_cate_3.bind("<Button-1>",yayoishop_click3)
                 yayoishop_cate_4.bind("<Button-1>",yayoishop_click4)
                 yayoishop_cate_5.bind("<Button-1>",yayoishop_click5)
+
             def yayoishop_orderframe() :
                 global yayoishop_indexmenubar,yayoishop_allorder
                 yayoishop_menu_butt["state"] = "active"
@@ -5878,7 +5997,7 @@ def Startprogram():
                                 Label(paymentframe,text="%0.f"%(shoppoint),bg="#EAE8E9",font="Calibri 16").place(x=400,y=450)
                                 Label(paymentframe,text="Total Cost",bg="#EAE8E9",font="Calibri 16 bold").place(x=60,y=490)
                                 Label(paymentframe,text="%0.f"%(total),bg="#EAE8E9",font="Calibri 16 bold").place(x=400,y=490)
-                                Button(paymentframe,text="Exit",bg="#EAE8E9",font="Calibri 16 bold",command=quit).place(x=890,y=480)
+                                Button(paymentframe,text="Exit",bg="#EAE8E9",font="Calibri 16 bold",command=quit).place(x=890,y=480)  
                                 yayoishop_menu_butt["state"] = "disabled"
                                 yayoishop_button_staff["state"] = "disabled"
                                 sql = """
@@ -5920,7 +6039,7 @@ def Startprogram():
                     Label(paymentframe,image=yayoishop_payment_1,bg="white").place(x=40,y=0)
                     Label(paymentframe,image=yayoishop_payment_2,bg="white").place(x=510,y=0)
                     # widget
-                    text_yourwallet = Label(paymentframe,text="Yourwallet",bg="#FFE6A7").place(x=60,y=10)
+                    text_yourwallet = Label(paymentframe,text="Your Wallet",bg="#FFE6A7").place(x=60,y=10)
                     text_balance = Label(paymentframe,text="balance : %s"%(cusinfo[7]),bg="#FFE6A7").place(x=120,y=50)
                     text_point = Label(paymentframe,text="Point   : %s"%(cusinfo[6]),bg="#FFE6A7").place(x=120,y=90)
                     text_member = Label(paymentframe,text="membership : %s"%(cusinfo[5]),bg="#FFE6A7").place(x=120,y=130)
@@ -5941,7 +6060,7 @@ def Startprogram():
                     text_tax = Label(paymentframe,text="Discount : %s Percent"%(discountpercent),bg="#FFF2D0").place(x=120,y=310)
                     total = (Total*discount*1.07)//1
                     text_total = Label(paymentframe,text="Total : %0.f Baht"%(total),bg="#FFF2D0").place(x=120,y=360)
-                    text_point = Label(paymentframe,text="Point : %s"%((Totalx/20)//1),bg="#FFF2D0").place(x=120,y=410)
+                    text_point = Label(paymentframe,text="Point : %s"%((total/20)//1),bg="#FFF2D0").place(x=120,y=410)
                     but_payment = Button(paymentframe,image=yayoishop_confirm,bg="#FFF2D0",fg="black",font="Calibri 16",border=0,command=lambda : paymentprocess(total))
                     but_payment.place(x=140,y=460)
                 #
@@ -5987,6 +6106,7 @@ def Startprogram():
                 cursor.execute(sql,[customername])
                 cusinfo = cursor.fetchone()
                 Button(yayoishop_allorder,text="Pay out",image=yayoishop_yayoishop_payout,command=lambda:yayoishop_payment(Totalx,cusinfo),border=0,bg="white",activebackground="white").grid(row=20,column=1,columnspan=2)
+            
             def staffcalling() :
                 sql = """
                         UPDATE shop_yayoi_table
@@ -6044,6 +6164,7 @@ def Startprogram():
             yayoishop_menu_butt = Button(yayoishop_frame,image=yayoishop_but_menu,border=0,bg="#FBE5E5",activebackground="#FBE5E5",command=yayoishop_menuframe)
             yayoishop_menu_butt.place(relx=0.72,y=28)
             yayoishop_menuframe()
+
         def afteryou_mainprogram(table,customername) :
             global afteryoushop_indexpage,afteryoushop_indexmenubar,afteryoushop_tablex
             afteryouroot = Frame(root,bg="white")
@@ -6063,6 +6184,7 @@ def Startprogram():
             afteryoushop_indexmenubar.set("0")
             afteryoushop_tablex = StringVar()
             afteryoushop_tablex.set(table)
+
             def afteryoupicture() :
                 #
                 global afteryou_menuset_1, afteryou_menuset_2 ,afteryou_menuset_3 ,afteryou_menuset_4,afteryou_menuset_5,afteryou_menuset_6,afteryou_menuset_7,afteryou_menuset_8,afteryou_menuset_9,afteryou_menuset_10,afteryou_menuset_11,afteryou_menuset_12,afteryou_menuset_13,afteryou_menuset_14,afteryou_menuset_15,afteryou_menuset_16,afteryou_menuset_17,afteryou_menuset_18,afteryou_menuset_19,afteryou_menuset_20,afteryou_menuset_21,afteryou_menuset_22,afteryou_menuset_23,afteryou_menuset_24,afteryou_menuset_25,afteryou_menuset_26,afteryou_menuset_27,afteryou_menuset_28,afteryou_menuset_29,afteryou_menuset_30,afteryou_menuset_31,afteryou_menuset_32,afteryou_menuset_33,afteryou_menuset_34,afteryou_menuset_35,afteryou_menuset_36,afteryou_menuset_37,afteryou_menuset_38,afteryou_menuset_39,afteryou_menuset_40,afteryou_menuset_41,afteryou_menuset_42,afteryou_menuset_43,afteryou_menuset_44,afteryou_menuset_45,afteryou_menuset_46,afteryou_menuset_47,afteryou_menuset_48
@@ -6124,6 +6246,7 @@ def Startprogram():
                 afteryou_menuset_46 = PhotoImage(file="image/Afteryou-shop/menuset_46.png")
                 afteryou_menuset_47 = PhotoImage(file="image/Afteryou-shop/menuset_47.png")
                 afteryou_menuset_48 = PhotoImage(file="image/Afteryou-shop/menuset_48.png")
+
             def afteryoushop_addtocartprocess(ordername,price) :
                 statusx = "NF"
                 amount = 1
@@ -6171,6 +6294,7 @@ def Startprogram():
                     lenorder = StringVar()
                     lenorder.set(nuborder)
                     afteryoushop_amount_order["text"] = lenorder.get()
+
             def afteryoushop_click1(e) :
                 if afteryoushop_indexpage.get() == "1" :
                     afteryoushop_frameone.destroy()
@@ -6287,26 +6411,27 @@ def Startprogram():
                 menu_10 = Label(afteryoushop_frameone,image=afteryou_menuset_10,bg="#FFFFFF")
                 menu_10.place(x=800,y=285)
                 #
-                mart_number_1 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Boba brown sugar","75"))
+                mart_number_1 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Boba brown sugar","75"))
                 mart_number_1.place(x=139,y=238)
-                mart_number_2 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Boba yin yang","70"))
+                mart_number_2 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Boba yin yang","70"))
                 mart_number_2.place(x=339,y=238)
-                mart_number_3 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry Kakigori","180"))
+                mart_number_3 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry Kakigori","180"))
                 mart_number_3.place(x=539,y=238)
-                mart_number_4 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Two tone Kakigori","199"))
+                mart_number_4 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Two tone Kakigori","199"))
                 mart_number_4.place(x=739,y=238)
-                mart_number_5 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Ferrero Toast","280"))
+                mart_number_5 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Ferrero Toast","280"))
                 mart_number_5.place(x=939,y=238)
-                mart_number_6 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Chocolate Toast","180"))
+                mart_number_6 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Chocolate Toast","280"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Choc&Berry pancake","200"))
+                mart_number_7 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Choc&Berry pancake","180"))
                 mart_number_7.place(x=339,y=503)
-                mart_number_8 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Nutella Pancake","175"))
+                mart_number_8 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Nutella Pancake","175"))
                 mart_number_8.place(x=539,y=503)
-                mart_number_9 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Fudge cake","119"))
+                mart_number_9 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Fudge cake","119"))
                 mart_number_9.place(x=739,y=503)
-                mart_number_10 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Souffle cheesecake","110"))
+                mart_number_10 = Button(afteryoushop_frameone,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Souffle cheesecake","110"))
                 mart_number_10.place(x=939,y=503)
+            
             def afteryoushop_frame_two() : # 2
                 global afteryoushop_frametwo
                 afteryoushop_indexpage.set("2")
@@ -6343,26 +6468,27 @@ def Startprogram():
                 menu_10 = Label(afteryoushop_frametwo,image=afteryou_menuset_20,bg="#FFFFFF")
                 menu_10.place(x=800,y=285)
                 #
-                mart_number_1 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Hojicha kakigori","250"))
+                mart_number_1 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Hojicha kakigori","250"))
                 mart_number_1.place(x=139,y=238)
-                mart_number_2 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Horlicks kakikori","250"))
+                mart_number_2 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Horlicks kakikori","250"))
                 mart_number_2.place(x=339,y=238)
-                mart_number_3 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry Kakigori","180"))
+                mart_number_3 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry Kakigori","180"))
                 mart_number_3.place(x=539,y=238)
-                mart_number_4 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Two tone Kakigori","200"))
+                mart_number_4 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Two tone Kakigori","200"))
                 mart_number_4.place(x=739,y=238)
-                mart_number_5 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Mango Kakigori","319"))
+                mart_number_5 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Mango Kakigori","319"))
                 mart_number_5.place(x=939,y=238)
-                mart_number_6 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Thai tea kakigori","195"))
+                mart_number_6 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Thai tea kakigori","195"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Milo volcano kakigori","200"))
+                mart_number_7 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Milo volcano kakigori","200"))
                 mart_number_7.place(x=339,y=503)
-                mart_number_8 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Conflake Cookie","120"))
+                mart_number_8 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Conflake Cookie","120"))
                 mart_number_8.place(x=539,y=503)
-                mart_number_9 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Raspberry Cookie","120"))
+                mart_number_9 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Raspberry Cookie","120"))
                 mart_number_9.place(x=739,y=503)
-                mart_number_10 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Caramel Waffle bite","120"))
+                mart_number_10 = Button(afteryoushop_frametwo,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Caramel Waffle bite","120"))
                 mart_number_10.place(x=939,y=503)
+            
             def afteryoushop_frame_three() : # 5
                 global afteryoushop_framethree
                 afteryoushop_indexpage.set("3")
@@ -6399,26 +6525,27 @@ def Startprogram():
                 menu_10 = Label(afteryoushop_framethree,image=afteryou_menuset_30,bg="#FFFFFF")
                 menu_10.place(x=800,y=285)
                 #
-                mart_number_1 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Boba brown sugar","75"))
+                mart_number_1 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Boba brown sugar","75"))
                 mart_number_1.place(x=139,y=238)
-                mart_number_2 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Iced americano","69"))
+                mart_number_2 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Iced americano","69"))
                 mart_number_2.place(x=339,y=238)
-                mart_number_3 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry limeade","60"))
+                mart_number_3 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry limeade","60"))
                 mart_number_3.place(x=539,y=238)
-                mart_number_4 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Matcha frappe","75"))
+                mart_number_4 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Matcha frappe","75"))
                 mart_number_4.place(x=739,y=238)
-                mart_number_5 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Nutella crunch coffee","80"))
+                mart_number_5 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Nutella crunch coffee","80"))
                 mart_number_5.place(x=939,y=238)
-                mart_number_6 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Earl grey milk tea","70"))
+                mart_number_6 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Earl grey milk tea","70"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("World best iced","70"))
+                mart_number_7 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("World best iced","70"))
                 mart_number_7.place(x=339,y=503)
-                mart_number_8 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Lavender lychee soda","70"))
+                mart_number_8 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Lavender lychee soda","70"))
                 mart_number_8.place(x=539,y=503)
-                mart_number_9 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Pink lemonade","70"))
+                mart_number_9 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Pink lemonade","70"))
                 mart_number_9.place(x=739,y=503)
-                mart_number_10 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry frappe","80"))
+                mart_number_10 = Button(afteryoushop_framethree,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry frappe","80"))
                 mart_number_10.place(x=939,y=503)
+            
             def afteryoushop_frame_four() : # 4
                 global afteryoushop_framefour
                 afteryoushop_indexpage.set("4")
@@ -6455,26 +6582,27 @@ def Startprogram():
                 menu_10 = Label(afteryoushop_framefour,image=afteryou_menuset_40,bg="#FFFFFF")
                 menu_10.place(x=800,y=285)
                 #
-                mart_number_1 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Couffle cheesecake","110"))
+                mart_number_1 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Couffle cheesecake","110"))
                 mart_number_1.place(x=139,y=238)
-                mart_number_2 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Puddings","150"))
+                mart_number_2 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Puddings","150"))
                 mart_number_2.place(x=339,y=238)
-                mart_number_3 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry crumble","129"))
+                mart_number_3 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry crumble","129"))
                 mart_number_3.place(x=539,y=238)
-                mart_number_4 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Chocolate lava","115"))
+                mart_number_4 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Chocolate lava","115"))
                 mart_number_4.place(x=739,y=238)
-                mart_number_5 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Figgy pudding","110"))
+                mart_number_5 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Figgy pudding","110"))
                 mart_number_5.place(x=939,y=238)
-                mart_number_6 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Chocolate brownie","155"))
+                mart_number_6 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Chocolate brownie","155"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Queen B fudge cake","130"))
+                mart_number_7 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Queen B fudge cake","130"))
                 mart_number_7.place(x=339,y=503)
-                mart_number_8 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry platter","200"))
+                mart_number_8 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Strawberry platter","200"))
                 mart_number_8.place(x=539,y=503)
-                mart_number_9 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Choc&Berry pancake","180"))
+                mart_number_9 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Choc&Berry pancake","180"))
                 mart_number_9.place(x=739,y=503)
-                mart_number_10 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Nutella Pancake","175"))
+                mart_number_10 = Button(afteryoushop_framefour,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Nutella Pancake","175"))
                 mart_number_10.place(x=939,y=503)
+            
             def afteryoushop_frame_five() : # 3
                 global afteryoushop_framefive
                 afteryoushop_indexpage.set("5")
@@ -6505,22 +6633,23 @@ def Startprogram():
                 menu_8 = Label(afteryoushop_framefive,image=afteryou_menuset_48,bg="#FFFFFF")
                 menu_8.place(x=400,y=285)
                 #
-                mart_number_1 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Thai Tea Toast","220"))
+                mart_number_1 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Thai Tea Toast","220"))
                 mart_number_1.place(x=139,y=238)
-                mart_number_2 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Shibuya honey toast","215"))
+                mart_number_2 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Shibuya honey toast","215"))
                 mart_number_2.place(x=339,y=238)
-                mart_number_3 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Ferrero Toast","280"))
+                mart_number_3 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Ferrero Toast","280"))
                 mart_number_3.place(x=539,y=238)
-                mart_number_4 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Nutella Toast","240"))
+                mart_number_4 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Nutella Toast","240"))
                 mart_number_4.place(x=739,y=238)
-                mart_number_5 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Matcha Toast","230"))
+                mart_number_5 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Matcha Toast","230"))
                 mart_number_5.place(x=939,y=238)
-                mart_number_6 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Chocolate Toast","280"))
+                mart_number_6 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Chocolate Toast","280"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Sticky Toffee Toast","190"))
+                mart_number_7 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Sticky Toffee Toast","190"))
                 mart_number_7.place(x=339,y=503)
-                mart_number_8 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,border=0,command=lambda:afteryoushop_addtocartprocess("Cheddar Cheese Toast","250"))
+                mart_number_8 = Button(afteryoushop_framefive,image=afteryoushop_mart_photo,bg="#F2E8D6",border=0,command=lambda:afteryoushop_addtocartprocess("Cheddar Cheese Toast","250"))
                 mart_number_8.place(x=539,y=503)
+            
             def afteryoushop_menuframe() :
                 global afteryoushop_cate_1 , afteryoushop_cate_2 , afteryoushop_cate_3 , afteryoushop_cate_4 , afteryoushop_cate_5 , afteryoushop_indexmenubar
                 afteryoushop_menu_butt["state"] = "disabled"
@@ -6562,6 +6691,7 @@ def Startprogram():
                 afteryoushop_cate_3.bind("<Button-1>",afteryoushop_click3)
                 afteryoushop_cate_4.bind("<Button-1>",afteryoushop_click4)
                 afteryoushop_cate_5.bind("<Button-1>",afteryoushop_click5)
+            
             def afteryoushop_orderframe() :
                 global afteryoushop_indexmenubar,afteryoushop_allorder
                 afteryoushop_menu_butt["state"] = "active"
@@ -6666,7 +6796,7 @@ def Startprogram():
                     Label(paymentframe,image=yayoishop_payment_1,bg="white").place(x=40,y=0)
                     Label(paymentframe,image=yayoishop_payment_2,bg="white").place(x=510,y=0)
                     # widget
-                    text_yourwallet = Label(paymentframe,text="Yourwallet",bg="#FFE6A7").place(x=60,y=10)
+                    text_yourwallet = Label(paymentframe,text="Your Wallet",bg="#FFE6A7").place(x=60,y=10)
                     text_balance = Label(paymentframe,text="balance : %s"%(cusinfo[7]),bg="#FFE6A7").place(x=120,y=50)
                     text_point = Label(paymentframe,text="Point   : %s"%(cusinfo[6]),bg="#FFE6A7").place(x=120,y=90)
                     text_member = Label(paymentframe,text="membership : %s"%(cusinfo[5]),bg="#FFE6A7").place(x=120,y=130)
@@ -6687,7 +6817,7 @@ def Startprogram():
                     text_tax = Label(paymentframe,text="Discount : %s Percent"%(discountpercent),bg="#FFF2D0").place(x=120,y=310)
                     total = (Total*discount*1.07)//1
                     text_total = Label(paymentframe,text="Total : %0.f Baht"%(total),bg="#FFF2D0").place(x=120,y=360)
-                    text_point = Label(paymentframe,text="Point : %s"%((Totalx/20)//1),bg="#FFF2D0").place(x=120,y=410)
+                    text_point = Label(paymentframe,text="Point : %s"%((total/20)//1),bg="#FFF2D0").place(x=120,y=410)
                     but_payment = Button(paymentframe,image=yayoishop_confirm,bg="#FFF2D0",fg="black",font="Calibri 16",border=0,command=lambda : paymentprocess(total))
                     but_payment.place(x=140,y=460)
                 #
@@ -6733,6 +6863,7 @@ def Startprogram():
                 cursor.execute(sql,[customername])
                 cusinfo = cursor.fetchone()
                 Button(afteryoushop_allorder,text="Pay out",image=yayoishop_yayoishop_payout,command=lambda:afteryoushop_payment(Totalx,cusinfo),border=0,bg="white",activebackground="white").grid(row=20,column=1,columnspan=2)
+            
             def staffcalling() :
                 sql = """
                         UPDATE shop_afteryou_table
@@ -6791,6 +6922,7 @@ def Startprogram():
             afteryoushop_menu_butt = Button(afteryoushop_frame,image=yayoishop_but_menu,border=0,bg="#FBE5E5",activebackground="#FBE5E5",command=afteryoushop_menuframe)
             afteryoushop_menu_butt.place(relx=0.72,y=28)
             afteryoushop_menuframe()
+        
         def kyo_mainprogram(table,customername) :
             global kyoshop_indexpage,kyoshop_indexmenubar,kyoshop_tablex
             kyoroot = Frame(root,bg="white")
@@ -6919,6 +7051,7 @@ def Startprogram():
                     lenorder = StringVar()
                     lenorder.set(nuborder)
                     kyoshop_amount_order["text"] = lenorder.get()
+
             def kyoshop_click1(e) :
                 if kyoshop_indexpage.get() == "1" :
                     kyoshop_frameone.destroy()
@@ -7036,7 +7169,7 @@ def Startprogram():
                 menu_10.place(x=800,y=285)
                 #
                 mart_number_1 = Button(kyoshop_frameone,image=kyoshop_mart_photo,border=0,command=lambda:kyoshop_addtocartprocess("Mango Granita","165"))
-                mart_number_1.place(x=139,y=238) #yk
+                mart_number_1.place(x=139,y=238) 
                 mart_number_2 = Button(kyoshop_frameone,image=kyoshop_mart_photo,border=0,command=lambda:kyoshop_addtocartprocess("Strawberry Yogurt","155"))
                 mart_number_2.place(x=339,y=238)
                 mart_number_3 = Button(kyoshop_frameone,image=kyoshop_mart_photo,border=0,command=lambda:kyoshop_addtocartprocess("Matcha Soft","165"))
@@ -7055,6 +7188,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(kyoshop_frameone,image=kyoshop_mart_photo,border=0,command=lambda:kyoshop_addtocartprocess("BBQ","279"))
                 mart_number_10.place(x=939,y=503)
+
             def kyoshop_frame_two() : # 2
                 global kyoshop_frametwo
                 kyoshop_indexpage.set("2")
@@ -7111,6 +7245,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(kyoshop_frametwo,image=kyoshop_mart_photo,border=0,command=lambda:kyoshop_addtocartprocess("Sumi Matcha","195"))
                 mart_number_10.place(x=939,y=503)
+
             def kyoshop_frame_three() : # 5
                 global kyoshop_framethree
                 kyoshop_indexpage.set("3")
@@ -7167,6 +7302,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(kyoshop_framethree,image=kyoshop_mart_photo,border=0,command=lambda:kyoshop_addtocartprocess("Signature Soft Cream","140"))
                 mart_number_10.place(x=936,y=503)
+
             def kyoshop_frame_four() : # 4
                 global kyoshop_framefour
                 kyoshop_indexpage.set("4")
@@ -7223,6 +7359,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(kyoshop_framefour,image=kyoshop_mart_photo,border=0,command=lambda:kyoshop_addtocartprocess("Strawberry Higiscus","89"))
                 mart_number_10.place(x=937,y=503)
+
             def kyoshop_frame_five() : # 3
                 global kyoshop_framefive
                 kyoshop_indexpage.set("5")
@@ -7279,6 +7416,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(kyoshop_framefive,image=kyoshop_mart_photo,border=0,command=lambda:kyoshop_addtocartprocess("Chocolate","65"))
                 mart_number_10.place(x=939,y=503)
+
             def kyoshop_menuframe() :
                 global kyoshop_cate_1 , kyoshop_cate_2 , kyoshop_cate_3 , kyoshop_cate_4 , kyoshop_cate_5 , kyoshop_indexmenubar
                 kyoshop_menu_butt["state"] = "disabled"
@@ -7320,6 +7458,7 @@ def Startprogram():
                 kyoshop_cate_3.bind("<Button-1>",kyoshop_click3)
                 kyoshop_cate_4.bind("<Button-1>",kyoshop_click4)
                 kyoshop_cate_5.bind("<Button-1>",kyoshop_click5)
+
             def kyoshop_orderframe() :
                 global kyoshop_indexmenubar,kyoshop_allorder
                 kyoshop_menu_butt["state"] = "active"
@@ -7425,7 +7564,7 @@ def Startprogram():
                     Label(paymentframe,image=yayoishop_payment_1,bg="white").place(x=40,y=0)
                     Label(paymentframe,image=yayoishop_payment_2,bg="white").place(x=510,y=0)
                     # widget
-                    text_yourwallet = Label(paymentframe,text="Yourwallet",bg="#FFE6A7").place(x=60,y=10)
+                    text_yourwallet = Label(paymentframe,text="Your Wallet",bg="#FFE6A7").place(x=60,y=10)
                     text_balance = Label(paymentframe,text="balance : %s"%(cusinfo[7]),bg="#FFE6A7").place(x=120,y=50)
                     text_point = Label(paymentframe,text="Point   : %s"%(cusinfo[6]),bg="#FFE6A7").place(x=120,y=90)
                     text_member = Label(paymentframe,text="membership : %s"%(cusinfo[5]),bg="#FFE6A7").place(x=120,y=130)
@@ -7446,7 +7585,7 @@ def Startprogram():
                     text_tax = Label(paymentframe,text="Discount : %s Percent"%(discountpercent),bg="#FFF2D0").place(x=120,y=310)
                     total = (Total*discount*1.07)//1
                     text_total = Label(paymentframe,text="Total : %0.f Baht"%(total),bg="#FFF2D0").place(x=120,y=360)
-                    text_point = Label(paymentframe,text="Point : %s"%((Totalx/20)//1),bg="#FFF2D0").place(x=120,y=410)
+                    text_point = Label(paymentframe,text="Point : %s"%((total/20)//1),bg="#FFF2D0").place(x=120,y=410)
                     but_payment = Button(paymentframe,image=yayoishop_confirm,bg="#FFF2D0",fg="black",font="Calibri 16",border=0,command=lambda : paymentprocess(total))
                     but_payment.place(x=140,y=460)
                 #
@@ -7550,6 +7689,7 @@ def Startprogram():
             kyoshop_menu_butt = Button(kyoshop_frame,image=yayoishop_but_menu,border=0,bg="#FBE5E5",activebackground="#FBE5E5",command=kyoshop_menuframe)
             kyoshop_menu_butt.place(relx=0.72,y=28)
             kyoshop_menuframe()
+
         def code_mainprogram(table,customername) :
             global codeshop_indexpage,codeshop_indexmenubar,codeshop_tablex
             coderoot = Frame(root,bg="white")
@@ -7569,6 +7709,7 @@ def Startprogram():
             codeshop_indexmenubar.set("0")
             codeshop_tablex = StringVar()
             codeshop_tablex.set(table)
+
             def codepicture() :
                 #
                 global code_menuset_1, code_menuset_2 ,code_menuset_3 ,code_menuset_4,code_menuset_5,code_menuset_6,code_menuset_7,code_menuset_8,code_menuset_9,code_menuset_10,code_menuset_11,code_menuset_12,code_menuset_13,code_menuset_14,code_menuset_15,code_menuset_16,code_menuset_17,code_menuset_18,code_menuset_19,code_menuset_20,code_menuset_21,code_menuset_22,code_menuset_23,code_menuset_24,code_menuset_25,code_menuset_26,code_menuset_27,code_menuset_28,code_menuset_29,code_menuset_30,code_menuset_31,code_menuset_32,code_menuset_33,code_menuset_34,code_menuset_35,code_menuset_36,code_menuset_37,code_menuset_38,code_menuset_39,code_menuset_40,code_menuset_41,code_menuset_42,code_menuset_43,code_menuset_44,code_menuset_45,code_menuset_46,code_menuset_47,code_menuset_48,code_menuset_49,code_menuset_50
@@ -7632,6 +7773,7 @@ def Startprogram():
                 code_menuset_48 = PhotoImage(file="image/Code-shop/menuset_48.png")
                 code_menuset_49 = PhotoImage(file="image/Code-shop/menuset_49.png")
                 code_menuset_50 = PhotoImage(file="image/Code-shop/menuset_50.png")
+
             def codeshop_addtocartprocess(ordername,price) :
                 statusx = "NF"
                 amount = 1
@@ -7759,6 +7901,7 @@ def Startprogram():
                 codeshop_cate_3["image"] = codeshop_cat_2
                 codeshop_cate_4["image"] = codeshop_cat_2
                 codeshop_cate_5["image"] = codeshop_cat_1
+
             def codeshop_frame_one() : # 1
                 global codeshop_frameone
                 codeshop_indexpage.set("1")
@@ -7795,26 +7938,27 @@ def Startprogram():
                 menu_10 = Label(codeshop_frameone,image=code_menuset_10,bg="#FFFFFF")
                 menu_10.place(x=800,y=285)
                 #
-                mart_number_1 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Nutella Lava Toast","180"))
+                mart_number_1 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Nutella Lava Toast","180"))
                 mart_number_1.place(x=139,y=238)
-                mart_number_2 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Croissant Thai Tea","199"))
+                mart_number_2 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Croissant Thai Tea","199"))
                 mart_number_2.place(x=337,y=238)
-                mart_number_3 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Croissant Nutella","280"))
+                mart_number_3 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Croissant Nutella","280"))
                 mart_number_3.place(x=537,y=238)
-                mart_number_4 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Mayongchid","189"))
+                mart_number_4 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Mayongchid","189"))
                 mart_number_4.place(x=739,y=238)
-                mart_number_5 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Purple Sweet Potato","245"))
+                mart_number_5 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Purple Sweet Potato","245"))
                 mart_number_5.place(x=939,y=238)
-                mart_number_6 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Matcha Milk Tea","95"))
+                mart_number_6 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Matcha Milk Tea","95"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Thai Milk Tea","95"))
+                mart_number_7 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Thai Milk Tea","95"))
                 mart_number_7.place(x=337,y=503)
-                mart_number_8 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Strawberry Croissant","60"))
+                mart_number_8 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Strawberry Croissant","60"))
                 mart_number_8.place(x=537,y=503)
-                mart_number_9 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Chocolate Croissant","55"))
+                mart_number_9 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Chocolate Croissant","55"))
                 mart_number_9.place(x=739,y=503)
-                mart_number_10 = Button(codeshop_frameone,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Original Croissant","50"))
+                mart_number_10 = Button(codeshop_frameone,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Original Croissant","50"))
                 mart_number_10.place(x=939,y=503)
+
             def codeshop_frame_two() : # 2
                 global codeshop_frametwo
                 codeshop_indexpage.set("2")
@@ -7851,26 +7995,27 @@ def Startprogram():
                 menu_10 = Label(codeshop_frametwo,image=code_menuset_20,bg="#FFFFFF")
                 menu_10.place(x=800,y=285)
                 #
-                mart_number_1 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Salted Egg Lava","75"))
+                mart_number_1 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Salted Egg Lava","75"))
                 mart_number_1.place(x=137,y=238)
-                mart_number_2 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Croissant Egg Lava","70"))
+                mart_number_2 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Croissant Egg Lava","70"))
                 mart_number_2.place(x=337,y=238)
-                mart_number_3 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Nutella Lava Toast","180"))
+                mart_number_3 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Nutella Lava Toast","180"))
                 mart_number_3.place(x=537,y=238)
-                mart_number_4 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Croissant Thai Tea","199"))
+                mart_number_4 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Croissant Thai Tea","199"))
                 mart_number_4.place(x=737,y=238)
-                mart_number_5 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Croissant Nutella","280"))
+                mart_number_5 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Croissant Nutella","280"))
                 mart_number_5.place(x=937,y=238)
-                mart_number_6 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Matcha Lava","280"))
+                mart_number_6 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Matcha Lava","280"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Chacoal Thai Tea","180"))
+                mart_number_7 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Chacoal Thai Tea","180"))
                 mart_number_7.place(x=339,y=503)
-                mart_number_8 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Matcha Fudge","175"))
+                mart_number_8 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Matcha Fudge","175"))
                 mart_number_8.place(x=537,y=503)
-                mart_number_9 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Honey Fudge","119"))
+                mart_number_9 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Honey Fudge","119"))
                 mart_number_9.place(x=737,y=503)
-                mart_number_10 = Button(codeshop_frametwo,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Chocolate Fudge","110"))
+                mart_number_10 = Button(codeshop_frametwo,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Chocolate Fudge","110"))
                 mart_number_10.place(x=937,y=503)
+
             def codeshop_frame_three() : # 5
                 global codeshop_framethree
                 codeshop_indexpage.set("3")
@@ -7907,26 +8052,27 @@ def Startprogram():
                 menu_10 = Label(codeshop_framethree,image=code_menuset_30,bg="#FFFFFF")
                 menu_10.place(x=800,y=285)
                 #
-                mart_number_1 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Banoffee","120"))
+                mart_number_1 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Banoffee","120"))
                 mart_number_1.place(x=137,y=238)
-                mart_number_2 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Strawberry","130"))
+                mart_number_2 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Strawberry","130"))
                 mart_number_2.place(x=339,y=238)
-                mart_number_3 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Chocolate","120"))
+                mart_number_3 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Chocolate","120"))
                 mart_number_3.place(x=539,y=238)
-                mart_number_4 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Mango","130"))
+                mart_number_4 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Mango","130"))
                 mart_number_4.place(x=739,y=238)
-                mart_number_5 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Mayongchid","189"))
+                mart_number_5 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Mayongchid","189"))
                 mart_number_5.place(x=939,y=238)
-                mart_number_6 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Strawberry Biscuit","195"))
+                mart_number_6 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Strawberry Biscuit","195"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Lodchong Flat","179"))
+                mart_number_7 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Lodchong Flat","179"))
                 mart_number_7.place(x=337,y=503)
-                mart_number_8 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Melon Japan","180"))
+                mart_number_8 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Melon Japan","180"))
                 mart_number_8.place(x=537,y=503)
-                mart_number_9 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Strawberry Chessecake","199"))
+                mart_number_9 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Strawberry Chessecake","199"))
                 mart_number_9.place(x=737,y=503)
-                mart_number_10 = Button(codeshop_framethree,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Purple Sweet Potato","245"))
+                mart_number_10 = Button(codeshop_framethree,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Purple Sweet Potato","245"))
                 mart_number_10.place(x=939,y=503)
+
             def codeshop_frame_four() : # 4
                 global codeshop_framefour
                 codeshop_indexpage.set("4")
@@ -7963,26 +8109,27 @@ def Startprogram():
                 menu_10 = Label(codeshop_framefour,image=code_menuset_40,bg="#FFFFFF")
                 menu_10.place(x=800,y=285)
                 #
-                mart_number_1 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Nutella Croissant","60"))
+                mart_number_1 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Nutella Croissant","60"))
                 mart_number_1.place(x=139,y=238)
-                mart_number_2 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Strawberry Croissant","60"))
+                mart_number_2 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Strawberry Croissant","60"))
                 mart_number_2.place(x=339,y=238)
-                mart_number_3 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Chocolate Croissant","55"))
+                mart_number_3 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Chocolate Croissant","55"))
                 mart_number_3.place(x=539,y=238)
-                mart_number_4 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Original Croissant","50"))
+                mart_number_4 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Original Croissant","50"))
                 mart_number_4.place(x=739,y=238)
-                mart_number_5 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Hazelnut Croissant","55"))
+                mart_number_5 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Hazelnut Croissant","55"))
                 mart_number_5.place(x=939,y=238)
-                mart_number_6 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Molten Chocolate","850"))
+                mart_number_6 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Molten Chocolate","850"))
                 mart_number_6.place(x=139,y=503)
-                mart_number_7 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Molten Matcha","900"))
+                mart_number_7 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Molten Matcha","900"))
                 mart_number_7.place(x=339,y=503)
-                mart_number_8 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Molten Thai Tea","850"))
+                mart_number_8 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Molten Thai Tea","850"))
                 mart_number_8.place(x=539,y=503)
-                mart_number_9 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Brownie","89"))
+                mart_number_9 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Brownie","89"))
                 mart_number_9.place(x=739,y=503)
-                mart_number_10 = Button(codeshop_framefour,image=codeshop_mart_photo,border=0,command=lambda:codeshop_addtocartprocess("Power Ball","75"))
+                mart_number_10 = Button(codeshop_framefour,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Power Ball","75"))
                 mart_number_10.place(x=939,y=503)
+
             def codeshop_frame_five() : # 3
                 global codeshop_framefive
                 codeshop_indexpage.set("5")
@@ -8039,6 +8186,7 @@ def Startprogram():
                 mart_number_9.place(x=737,y=503)
                 mart_number_10 = Button(codeshop_framefive,image=codeshop_mart_photo,bg='#FFFFFF',border=0,command=lambda:codeshop_addtocartprocess("Thai Milk Tea","95"))
                 mart_number_10.place(x=937,y=503)
+
             def codeshop_menuframe() :
                 global codeshop_cate_1 , codeshop_cate_2 , codeshop_cate_3 , codeshop_cate_4 , codeshop_cate_5 , codeshop_indexmenubar
                 codeshop_menu_butt["state"] = "disabled"
@@ -8080,6 +8228,7 @@ def Startprogram():
                 codeshop_cate_3.bind("<Button-1>",codeshop_click3)
                 codeshop_cate_4.bind("<Button-1>",codeshop_click4)
                 codeshop_cate_5.bind("<Button-1>",codeshop_click5)
+
             def codeshop_orderframe() :
                 global codeshop_indexmenubar,codeshop_allorder
                 codeshop_menu_butt["state"] = "active"
@@ -8185,7 +8334,7 @@ def Startprogram():
                     Label(paymentframe,image=yayoishop_payment_1,bg="white").place(x=40,y=0)
                     Label(paymentframe,image=yayoishop_payment_2,bg="white").place(x=510,y=0)
                     # widget
-                    text_yourwallet = Label(paymentframe,text="Yourwallet",bg="#FFE6A7").place(x=60,y=10)
+                    text_yourwallet = Label(paymentframe,text="Your Wallet",bg="#FFE6A7").place(x=60,y=10)
                     text_balance = Label(paymentframe,text="balance : %s"%(cusinfo[7]),bg="#FFE6A7").place(x=120,y=50)
                     text_point = Label(paymentframe,text="Point   : %s"%(cusinfo[6]),bg="#FFE6A7").place(x=120,y=90)
                     text_member = Label(paymentframe,text="membership : %s"%(cusinfo[5]),bg="#FFE6A7").place(x=120,y=130)
@@ -8206,7 +8355,7 @@ def Startprogram():
                     text_tax = Label(paymentframe,text="Discount : %s Percent"%(discountpercent),bg="#FFF2D0").place(x=120,y=310)
                     total = (Total*discount*1.07)//1
                     text_total = Label(paymentframe,text="Total : %0.f Baht"%(total),bg="#FFF2D0").place(x=120,y=360)
-                    text_point = Label(paymentframe,text="Point : %s"%((Totalx/20)//1),bg="#FFF2D0").place(x=120,y=410)
+                    text_point = Label(paymentframe,text="Point : %s"%((total/20)//1),bg="#FFF2D0").place(x=120,y=410)
                     but_payment = Button(paymentframe,image=yayoishop_confirm,bg="#FFF2D0",fg="black",font="Calibri 16",border=0,command=lambda : paymentprocess(total))
                     but_payment.place(x=140,y=460)
                 #
@@ -8252,6 +8401,7 @@ def Startprogram():
                 cursor.execute(sql,[customername])
                 cusinfo = cursor.fetchone()
                 Button(codeshop_allorder,text="Pay out",image=yayoishop_yayoishop_payout,command=lambda:codeshop_payment(Totalx,cusinfo),border=0,bg="white",activebackground="white").grid(row=20,column=1,columnspan=2)
+            
             def staffcalling() :
                 sql = """
                         UPDATE shop_code_table
@@ -8310,6 +8460,7 @@ def Startprogram():
             codeshop_menu_butt = Button(codeshop_frame,image=yayoishop_but_menu,border=0,bg="#FBE5E5",activebackground="#FBE5E5",command=codeshop_menuframe)
             codeshop_menu_butt.place(relx=0.72,y=28)
             codeshop_menuframe()
+        
         def shin_mainprogram(table,customername) :
             global shinshop_indexpage,shinshop_indexmenubar,shinshop_tablex
             shinroot = Frame(root,bg="white")
@@ -8392,6 +8543,7 @@ def Startprogram():
                 shin_menuset_48 = PhotoImage(file="image/Shinkanzen-shop/menuset_48.png")
                 shin_menuset_49 = PhotoImage(file="image/Shinkanzen-shop/menuset_49.png")
                 shin_menuset_50 = PhotoImage(file="image/Shinkanzen-shop/menuset_50.png")
+
             def shinshop_addtocartprocess(ordername,price) :
                 statusx = "NF"
                 amount = 1
@@ -8439,6 +8591,7 @@ def Startprogram():
                     lenorder = StringVar()
                     lenorder.set(nuborder)
                     shinshop_amount_order["text"] = lenorder.get()
+
             def shinshop_click1(e) :
                 if shinshop_indexpage.get() == "1" :
                     shinshop_frameone.destroy()
@@ -8575,6 +8728,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(shinshop_frameone,image=shinshop_mart_photo,border=0,command=lambda:shinshop_addtocartprocess("สลัดแซลมอน","75"),bg="#F6E9D6")
                 mart_number_10.place(x=937,y=503)
+
             def shinshop_frame_two() : # 2
                 global shinshop_frametwo
                 shinshop_indexpage.set("2")
@@ -8631,6 +8785,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(shinshop_frametwo,image=shinshop_mart_photo,border=0,command=lambda:shinshop_addtocartprocess("ซูชิปลาซาบะดองย่าง","55"),bg="#F6E9D6")
                 mart_number_10.place(x=939,y=503)
+
             def shinshop_frame_three() : # 5
                 global shinshop_framethree
                 shinshop_indexpage.set("3")
@@ -8687,6 +8842,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(shinshop_framethree,image=shinshop_mart_photo,border=0,command=lambda:shinshop_addtocartprocess("แซลมอนสลัดมากิ","175"),bg="#F6E9D6")
                 mart_number_10.place(x=937,y=503)
+
             def shinshop_frame_four() : # 4
                 global shinshop_framefour
                 shinshop_indexpage.set("4")
@@ -8743,6 +8899,7 @@ def Startprogram():
                 mart_number_9.place(x=737,y=503)
                 mart_number_10 = Button(shinshop_framefour,image=shinshop_mart_photo,border=0,command=lambda:shinshop_addtocartprocess("ซาชิมิแซลมอนกุ้งอากะเอบิ","189"),bg="#F6E9D6")
                 mart_number_10.place(x=937,y=503)
+
             def shinshop_frame_five() : # 3
                 global shinshop_framefive
                 shinshop_indexpage.set("5")
@@ -8799,6 +8956,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(shinshop_framefive,image=shinshop_mart_photo,border=0,command=lambda:shinshop_addtocartprocess("สลัดแซลมอนสไปซี่","85"),bg="#F6E9D6")
                 mart_number_10.place(x=939,y=503)
+
             def shinshop_menuframe() :
                 global shinshop_cate_1 , shinshop_cate_2 , shinshop_cate_3 , shinshop_cate_4 , shinshop_cate_5 , shinshop_indexmenubar
                 shinshop_menu_butt["state"] = "disabled"
@@ -8840,6 +8998,7 @@ def Startprogram():
                 shinshop_cate_3.bind("<Button-1>",shinshop_click3)
                 shinshop_cate_4.bind("<Button-1>",shinshop_click4)
                 shinshop_cate_5.bind("<Button-1>",shinshop_click5)
+
             def shinshop_orderframe() :
                 global shinshop_indexmenubar,shinshop_allorder
                 shinshop_menu_butt["state"] = "active"
@@ -8945,7 +9104,7 @@ def Startprogram():
                     Label(paymentframe,image=yayoishop_payment_1,bg="white").place(x=40,y=0)
                     Label(paymentframe,image=yayoishop_payment_2,bg="white").place(x=510,y=0)
                     # widget
-                    text_yourwallet = Label(paymentframe,text="Yourwallet",bg="#FFE6A7").place(x=60,y=10)
+                    text_yourwallet = Label(paymentframe,text="Your Wallet",bg="#FFE6A7").place(x=60,y=10)
                     text_balance = Label(paymentframe,text="balance : %s"%(cusinfo[7]),bg="#FFE6A7").place(x=120,y=50)
                     text_point = Label(paymentframe,text="Point   : %s"%(cusinfo[6]),bg="#FFE6A7").place(x=120,y=90)
                     text_member = Label(paymentframe,text="membership : %s"%(cusinfo[5]),bg="#FFE6A7").place(x=120,y=130)
@@ -8966,7 +9125,7 @@ def Startprogram():
                     text_tax = Label(paymentframe,text="Discount : %s Percent"%(discountpercent),bg="#FFF2D0").place(x=120,y=310)
                     total = (Total*discount*1.07)//1
                     text_total = Label(paymentframe,text="Total : %0.f Baht"%(total),bg="#FFF2D0").place(x=120,y=360)
-                    text_point = Label(paymentframe,text="Point : %s"%((Totalx/20)//1),bg="#FFF2D0").place(x=120,y=410)
+                    text_point = Label(paymentframe,text="Point : %s"%((total/20)//1),bg="#FFF2D0").place(x=120,y=410)
                     but_payment = Button(paymentframe,image=yayoishop_confirm,bg="#FFF2D0",fg="black",font="Calibri 16",border=0,command=lambda : paymentprocess(total))
                     but_payment.place(x=140,y=460)
                 #
@@ -9012,6 +9171,7 @@ def Startprogram():
                 cursor.execute(sql,[customername])
                 cusinfo = cursor.fetchone()
                 Button(shinshop_allorder,text="Pay out",image=yayoishop_yayoishop_payout,command=lambda:shinshop_payment(Totalx,cusinfo),border=0,bg="white",activebackground="white").grid(row=20,column=1,columnspan=2)
+            
             def staffcalling() :
                 sql = """
                         UPDATE shop_shin_table
@@ -9070,6 +9230,7 @@ def Startprogram():
             shinshop_menu_butt = Button(shinshop_frame,image=yayoishop_but_menu,border=0,bg="#FBE5E5",activebackground="#FBE5E5",command=shinshop_menuframe)
             shinshop_menu_butt.place(relx=0.72,y=28)
             shinshop_menuframe()
+
         def ohk_mainprogram(table,customername) :
             global ohkshop_indexpage,ohkshop_indexmenubar,ohkshop_tablex
             ohkroot = Frame(root,bg="#FFF6E8")
@@ -9152,6 +9313,7 @@ def Startprogram():
                 ohk_menuset_48 = PhotoImage(file="image/Ohkajhu-shop/menuset_48.png")
                 ohk_menuset_49 = PhotoImage(file="image/Ohkajhu-shop/menuset_49.png")
                 ohk_menuset_50 = PhotoImage(file="image/Ohkajhu-shop/menuset_50.png")
+
             def ohkshop_addtocartprocess(ordername,price) :
                 statusx = "NF"
                 amount = 1
@@ -9199,6 +9361,7 @@ def Startprogram():
                     lenorder = StringVar()
                     lenorder.set(nuborder)
                     ohkshop_amount_order["text"] = lenorder.get()
+            
             def ohkshop_click1(e) :
                 if ohkshop_indexpage.get() == "1" :
                     ohkshop_frameone.destroy()
@@ -9279,6 +9442,7 @@ def Startprogram():
                 ohkshop_cate_3["image"] = ohkshop_cat_2
                 ohkshop_cate_4["image"] = ohkshop_cat_2
                 ohkshop_cate_5["image"] = ohkshop_cat_1
+
             def ohkshop_frame_one() : # 1
                 global ohkshop_frameone
                 ohkshop_indexpage.set("1")
@@ -9316,7 +9480,7 @@ def Startprogram():
                 menu_10.place(x=800,y=285)
                 #
                 mart_number_1 = Button(ohkshop_frameone,image=ohkshop_mart_photo,border=0,command=lambda:ohkshop_addtocartprocess("สเต็กซี่โครง","259"))
-                mart_number_1.place(x=139,y=238)
+                mart_number_1.place(x=137,y=238)
                 mart_number_2 = Button(ohkshop_frameone,image=ohkshop_mart_photo,border=0,command=lambda:ohkshop_addtocartprocess("เลดี้ ริบส์ โอ้กะจู๋","825"))
                 mart_number_2.place(x=339,y=238)
                 mart_number_3 = Button(ohkshop_frameone,image=ohkshop_mart_photo,border=0,command=lambda:ohkshop_addtocartprocess("สเต็กไก่สอดไส้ชีส","230"))
@@ -9335,6 +9499,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(ohkshop_frameone,image=ohkshop_mart_photo,border=0,command=lambda:ohkshop_addtocartprocess("แองเจิ้ลแฮร์ปูครีมไข่กุ้ง","220"))
                 mart_number_10.place(x=939,y=503)
+
             def ohkshop_frame_two() : # 2
                 global ohkshop_frametwo
                 ohkshop_indexpage.set("2")
@@ -9391,6 +9556,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(ohkshop_frametwo,image=ohkshop_mart_photo,border=0,command=lambda:ohkshop_addtocartprocess("สเต็กปลาหิมะย่าง","225"))
                 mart_number_10.place(x=939,y=503)
+
             def ohkshop_frame_three() : # 5
                 global ohkshop_framethree
                 ohkshop_indexpage.set("3")
@@ -9447,6 +9613,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(ohkshop_framethree,image=ohkshop_mart_photo,border=0,command=lambda:ohkshop_addtocartprocess("ฟูซิลลี่ทูน่าต้มยำแห้ง","270"))
                 mart_number_10.place(x=939,y=503)
+
             def ohkshop_frame_four() : # 4
                 global ohkshop_framefour
                 ohkshop_indexpage.set("4")
@@ -9503,6 +9670,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(ohkshop_framefour,image=ohkshop_mart_photo,border=0,command=lambda:ohkshop_addtocartprocess("ซุปเห็ดสามอย่าง","120"))
                 mart_number_10.place(x=939,y=503)
+
             def ohkshop_frame_five() : # 3
                 global ohkshop_framefive
                 ohkshop_indexpage.set("5")
@@ -9559,6 +9727,7 @@ def Startprogram():
                 mart_number_9.place(x=739,y=503)
                 mart_number_10 = Button(ohkshop_framefive,image=ohkshop_mart_photo,border=0,command=lambda:ohkshop_addtocartprocess("สลัดคะน้าเบคอนกรอบ","190"))
                 mart_number_10.place(x=939,y=503)
+
             def ohkshop_menuframe() :
                 global ohkshop_cate_1 , ohkshop_cate_2 , ohkshop_cate_3 , ohkshop_cate_4 , ohkshop_cate_5 , ohkshop_indexmenubar
                 ohkshop_menu_butt["state"] = "disabled"
@@ -9600,6 +9769,7 @@ def Startprogram():
                 ohkshop_cate_3.bind("<Button-1>",ohkshop_click3)
                 ohkshop_cate_4.bind("<Button-1>",ohkshop_click4)
                 ohkshop_cate_5.bind("<Button-1>",ohkshop_click5)
+
             def ohkshop_orderframe() :
                 global ohkshop_indexmenubar,ohkshop_allorder
                 ohkshop_menu_butt["state"] = "active"
@@ -9705,7 +9875,7 @@ def Startprogram():
                     Label(paymentframe,image=yayoishop_payment_1,bg="white").place(x=40,y=0)
                     Label(paymentframe,image=yayoishop_payment_2,bg="white").place(x=510,y=0)
                     # widget
-                    text_yourwallet = Label(paymentframe,text="Yourwallet",bg="#FFE6A7").place(x=60,y=10)
+                    text_yourwallet = Label(paymentframe,text="Your Wallet",bg="#FFE6A7").place(x=60,y=10)
                     text_balance = Label(paymentframe,text="balance : %s"%(cusinfo[7]),bg="#FFE6A7").place(x=120,y=50)
                     text_point = Label(paymentframe,text="Point   : %s"%(cusinfo[6]),bg="#FFE6A7").place(x=120,y=90)
                     text_member = Label(paymentframe,text="membership : %s"%(cusinfo[5]),bg="#FFE6A7").place(x=120,y=130)
@@ -9726,7 +9896,7 @@ def Startprogram():
                     text_tax = Label(paymentframe,text="Discount : %s Percent"%(discountpercent),bg="#FFF2D0").place(x=120,y=310)
                     total = (Total*discount*1.07)//1
                     text_total = Label(paymentframe,text="Total : %0.f Baht"%(total),bg="#FFF2D0").place(x=120,y=360)
-                    text_point = Label(paymentframe,text="Point : %s"%((Totalx/20)//1),bg="#FFF2D0").place(x=120,y=410)
+                    text_point = Label(paymentframe,text="Point : %s"%((total/20)//1),bg="#FFF2D0").place(x=120,y=410)
                     but_payment = Button(paymentframe,image=yayoishop_confirm,bg="#FFF2D0",fg="black",font="Calibri 16",border=0,command=lambda : paymentprocess(total))
                     but_payment.place(x=140,y=460)
                 #
@@ -9772,6 +9942,7 @@ def Startprogram():
                 cursor.execute(sql,[customername])
                 cusinfo = cursor.fetchone()
                 Button(ohkshop_allorder,text="Pay out",image=yayoishop_yayoishop_payout,command=lambda:ohkshop_payment(Totalx,cusinfo),border=0,bg="white",activebackground="white").grid(row=20,column=1,columnspan=2)
+            
             def staffcalling() :
                 sql = """
                         UPDATE shop_ohk_table
@@ -9840,7 +10011,9 @@ def Startprogram():
     # start
     # โปรแกรมหลัก
     customerlogin()
+    #
+    #shin_mainprogram("1","Punyakon")
 # start
-splash_win.after(600,Startprogram)
+splash_win.after(1000,Startprogram)
 # End
 mainloop()
